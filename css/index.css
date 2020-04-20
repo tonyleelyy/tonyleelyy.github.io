@@ -2963,7 +2963,7 @@ figure.gallery-group .gallery-group-name:after {
 .note h4,
 .note h5,
 .note h6 {
-  margin-top: 0;
+  margin-top: 3px;
   margin-bottom: 0;
   padding-top: 0 !important;
   border-bottom: initial;
@@ -2986,6 +2986,16 @@ figure.gallery-group .gallery-group-name:after {
 .note img:last-child {
   margin-bottom: 0 !important;
 }
+.note:not(.no-icon) {
+  padding-left: 45px;
+}
+.note:not(.no-icon)::before {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  font-size: larger;
+  font-family: 'FontAwesome';
+}
 .note.default {
   border-color: #e1e1e1;
   background-color: #f3f3f3;
@@ -3000,6 +3010,9 @@ figure.gallery-group .gallery-group-name:after {
 .note.default span.exturl:not(.btn):hover {
   border-bottom: 1px solid #454545;
   color: #454545;
+}
+.note.default:not(.no-icon)::before {
+  content: '\f0a9';
 }
 .note.primary {
   border-color: #e1c2ff;
@@ -3016,6 +3029,9 @@ figure.gallery-group .gallery-group-name:after {
   border-bottom: 1px solid #453298;
   color: #453298;
 }
+.note.primary:not(.no-icon)::before {
+  content: '\f055';
+}
 .note.info {
   border-color: #b3e5ef;
   background-color: #d9edf7;
@@ -3030,6 +3046,9 @@ figure.gallery-group .gallery-group-name:after {
 .note.info span.exturl:not(.btn):hover {
   border-bottom: 1px solid #215761;
   color: #215761;
+}
+.note.info:not(.no-icon)::before {
+  content: '\f05a';
 }
 .note.success {
   border-color: #d0e6be;
@@ -3046,6 +3065,9 @@ figure.gallery-group .gallery-group-name:after {
   border-bottom: 1px solid #32562c;
   color: #32562c;
 }
+.note.success:not(.no-icon)::before {
+  content: '\f058';
+}
 .note.warning {
   border-color: #fae4cd;
   background-color: #fcf4e3;
@@ -3061,6 +3083,9 @@ figure.gallery-group .gallery-group-name:after {
   border-bottom: 1px solid #714f30;
   color: #714f30;
 }
+.note.warning:not(.no-icon)::before {
+  content: '\f06a';
+}
 .note.danger {
   border-color: #ebcdd2;
   background-color: #f2dfdf;
@@ -3075,6 +3100,9 @@ figure.gallery-group .gallery-group-name:after {
 .note.danger span.exturl:not(.btn):hover {
   border-bottom: 1px solid #84333f;
   color: #84333f;
+}
+.note.danger:not(.no-icon)::before {
+  content: '\f056';
 }
 .layout_page {
   display: -webkit-box;
