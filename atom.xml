@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tonyleelyy.top/"/>
-  <updated>2020-05-15T15:17:59.032Z</updated>
+  <updated>2020-05-16T02:54:42.166Z</updated>
   <id>http://tonyleelyy.top/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="http://tonyleelyy.top/46011/"/>
     <id>http://tonyleelyy.top/46011/</id>
     <published>2020-05-15T14:00:00.000Z</published>
-    <updated>2020-05-15T15:17:59.032Z</updated>
+    <updated>2020-05-16T02:54:42.166Z</updated>
     
     <summary type="html">
     
-      Github + jsDelivr + PicGo + Typoca = 一个接近完美的图床
+      GitHub + jsDelivr + PicGo + Typora = 一个接近完美的图床
     
     </summary>
     
@@ -33,9 +33,9 @@
       <category term="教程" scheme="http://tonyleelyy.top/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-      <category term="教程" scheme="http://tonyleelyy.top/tags/%E6%95%99%E7%A8%8B/"/>
-    
       <category term="图床" scheme="http://tonyleelyy.top/tags/%E5%9B%BE%E5%BA%8A/"/>
+    
+      <category term="教程" scheme="http://tonyleelyy.top/tags/%E6%95%99%E7%A8%8B/"/>
     
       <category term="GitHub" scheme="http://tonyleelyy.top/tags/GitHub/"/>
     
@@ -58,9 +58,9 @@
       <category term="教程" scheme="http://tonyleelyy.top/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-      <category term="黑苹果" scheme="http://tonyleelyy.top/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
-    
       <category term="教程" scheme="http://tonyleelyy.top/tags/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="黑苹果" scheme="http://tonyleelyy.top/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
     
   </entry>
   
