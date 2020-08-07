@@ -1,0 +1,14 @@
+    body {
+        background-color: rgb(241, 241, 241);
+        color: #212121;
+    }
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(40, 42, 43);
+        color: #FFFFFF;
+  }
+}
+
+.box {
+    height: 100px;
+}

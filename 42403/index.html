@@ -1,66 +1,74 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>如何在你的电脑上安装黑苹果 | Tony的个人网站</title><meta name="description" content="An Apple a day keeps the doctor away."><meta name="keywords" content="教程,黑苹果"><meta name="author" content="tonyleelyy"><meta name="copyright" content="tonyleelyy"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="crossorigin"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="preconnect" href="http://ta.qq.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="EXShWAqsxstSGZuCcQ5bCsyw2HLoQAQf5rYn8NsYYM4"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="如何在你的电脑上安装黑苹果"><meta name="twitter:description" content="An Apple a day keeps the doctor away."><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_hack.jpg"><meta property="og:type" content="article"><meta property="og:title" content="如何在你的电脑上安装黑苹果"><meta property="og:url" content="http://tonyleelyy.top/42403/"><meta property="og:site_name" content="Tony的个人网站"><meta property="og:description" content="An Apple a day keeps the doctor away."><meta property="og:image" content="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_hack.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
-var t = Cookies.get("theme")
-if (autoChangeMode == '1'){
-  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>如何在你的电脑上安装黑苹果 | Tony's Blog</title><meta name="description" content="An Apple a day keeps the doctor away."><meta name="keywords" content="教程,黑苹果"><meta name="author" content="tonyleelyy"><meta name="copyright" content="tonyleelyy"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://tonyleelyy.top/42403/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//ta.qq.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="EXShWAqsxstSGZuCcQ5bCsyw2HLoQAQf5rYn8NsYYM4"/><meta property="og:type" content="article"><meta property="og:title" content="如何在你的电脑上安装黑苹果"><meta property="og:url" content="http://tonyleelyy.top/42403/"><meta property="og:site_name" content="Tony's Blog"><meta property="og:description" content="An Apple a day keeps the doctor away."><meta property="og:image" content="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_hack.jpg"><meta property="article:published_time" content="2020-05-15T13:00:00.000Z"><meta property="article:modified_time" content="2020-05-15T13:00:00.000Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = '1'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
   var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-  if (t === undefined){
+  if (t === undefined) {
     if (isLightMode) activateLightMode()
     else if (isDarkMode) activateDarkMode()
-    else if (isNotSpecified || hasNoSupport){
+    else if (isNotSpecified || hasNoSupport) {
       console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
       var now = new Date()
       var hour = now.getHours()
-      var isNight = hour < 6 || hour >= 18
+      var isNight = hour <= 6 || hour >= 18
       isNight ? activateDarkMode() : activateLightMode()
-  }
-  } else if (t == 'light') activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
   else activateDarkMode()
-
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
   else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
+  else activateDarkMode()
 } else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
-
-function activateDarkMode(){
-  document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
-  }
-}
-function activateLightMode(){
-  document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
-  }
-}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://tonyleelyy.top/42403/"><link rel="prev" title="搭建一个永不失效的图床" href="http://tonyleelyy.top/46011/"><link rel="next" title="Markdown 写作指南" href="http://tonyleelyy.top/28369/"><script>var _hmt = _hmt || [];
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "https://hm.baidu.com/hm.js?a2701d1594d91bdd8b297f93c1a846f8";
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
-</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-162300758-1', 'auto');
-ga('send', 'pageview');
-</script><script src="https://tajs.qq.com/stats?sId=66539099" charset="UTF-8"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-162300758-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-162300758-1');
+</script><script src="https://tajs.qq.com/stats?sId=66539099" charset="UTF-8" data-pjax="data-pjax"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: undefined,
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  translate: undefined,
+  noticeOutdate: {"limitDay":90,"position":"top","messagePrev":"本文最后更新于","messageNext":"天前，文中所描述的信息可能已发生改变。"},
   copy: {
     success: '复制成功',
     error: '复制错误',
@@ -73,30 +81,35 @@ ga('send', 'pageview');
   runtime_unit: '天',
   runtime: true,
   copyright: undefined,
-  ClickShowText: {"text":"富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善","fontSize":"15px"},
+  ClickShowText: undefined,
   medium_zoom: false,
   fancybox: true,
   Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
   baiduPush: false,
   highlightCopy: true,
   highlightLang: true,
-  highlightShrink: 'false',
-  isFontAwesomeV5: false,
-  isPhotoFigcaption: false
-  
-}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
   isPost: true,
   isHome: false,
-  isSidebar: true  
-  }</script><noscript><style>
-#page-header {
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-05-15 21:00:00'
+}</script><noscript><style>
+#nav {
   opacity: 1
 }
-.justified-gallery img{
+.justified-gallery img {
   opacity: 1
 }
-</style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Tony的个人网站" type="application/atom+xml">
-</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 列表</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fa fa-photo"></i><span> Photo</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#阅读指南"><span class="toc-text">阅读指南</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-前言"><span class="toc-text">1. 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-什么是黑苹果"><span class="toc-text">1.1. 什么是黑苹果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-我的电脑能装黑苹果吗"><span class="toc-text">1.2. 我的电脑能装黑苹果吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-准备工具"><span class="toc-text">1.3. 准备工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-为什么要装-macOS"><span class="toc-text">1.4. 为什么要装 macOS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-前期准备"><span class="toc-text">2. 前期准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-BIOS-设置"><span class="toc-text">2.1. BIOS 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-扩大EFI分区"><span class="toc-text">2.2. 扩大EFI分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-已经安装了Windows"><span class="toc-text">2.2.1. 已经安装了Windows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-还没安装Windows"><span class="toc-text">2.2.2. 还没安装Windows</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-镜像制作"><span class="toc-text">2.3. 镜像制作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-镜像下载"><span class="toc-text">2.3.1. 镜像下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-镜像刻录"><span class="toc-text">2.3.2. 镜像刻录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Clover-OpenCore-介绍"><span class="toc-text">3. Clover&#x2F;OpenCore 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-OpenCore-介绍"><span class="toc-text">3.1. OpenCore 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Clover-介绍"><span class="toc-text">3.2. Clover 介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-修改镜像"><span class="toc-text">4. 修改镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-寻找-EFI"><span class="toc-text">4.1. 寻找 EFI</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-构建自己的-EFI"><span class="toc-text">5. 构建自己的 EFI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-OpenCore-的下载"><span class="toc-text">5.1. OpenCore 的下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-OpenCore-的结构"><span class="toc-text">5.2. OpenCore 的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-必备文件"><span class="toc-text">5.3. 必备文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Config-plist"><span class="toc-text">6. Config.plist</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-详细步骤"><span class="toc-text">6.1. 详细步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-更名"><span class="toc-text">6.2. 更名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-驱动填写顺序"><span class="toc-text">6.3. 驱动填写顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-1-ACPI-注入顺序"><span class="toc-text">6.3.1. ACPI 注入顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-2-Kernel-注入顺序"><span class="toc-text">6.3.2. Kernel 注入顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-3-Drivers-加载顺序"><span class="toc-text">6.3.3. Drivers 加载顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-机型修改"><span class="toc-text">6.4. 机型修改</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-开始安装"><span class="toc-text">7. 开始安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-创建分区"><span class="toc-text">7.1. 创建分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-安装"><span class="toc-text">7.2. 安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-出发前的准备"><span class="toc-text">8. 出发前的准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-允许任何来源的应用"><span class="toc-text">8.1. 允许任何来源的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-重建缓存"><span class="toc-text">8.2. 重建缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-抛弃U盘启动"><span class="toc-text">8.3. 抛弃U盘启动</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-完善"><span class="toc-text">9. 完善</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-机型修改"><span class="toc-text">9.1. 机型修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-显卡"><span class="toc-text">9.2. 显卡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-1-查找-id"><span class="toc-text">9.2.1. 查找 id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-2-注入-id"><span class="toc-text">9.2.2. 注入 id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-3-注入-framebuffer"><span class="toc-text">9.2.3. 注入 framebuffer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-声卡"><span class="toc-text">9.3. 声卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4-网卡"><span class="toc-text">9.4. 网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5-CPU-变频"><span class="toc-text">9.5. CPU 变频</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-6-HiDPI"><span class="toc-text">9.6. HiDPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-7-ACPI-补丁"><span class="toc-text">9.7. ACPI 补丁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-8-USB-定制"><span class="toc-text">9.8. USB 定制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-结尾"><span class="toc-text">10. 结尾</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-版权鸣谢"><span class="toc-text">11. 版权鸣谢</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_hack.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Tony的个人网站</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 列表</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fa fa-photo"></i><span> Photo</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">如何在你的电脑上安装黑苹果</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-15 21:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-15</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-29 15:40:20"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-29</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">9.4k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 31 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/42403/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/42403/" itemprop="commentCount"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><p>现在网络上的黑苹果教程很多，也有不少写的非常好，但是大部分教程仅包含很小的一部分，具体讲到怎么折腾，怎么设置，怎样完善的帖子却很少。新手遇到问题不仅需要大量查贴，还往往徒劳无功。</p>
+</style></noscript><meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="Tony's Blog" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 更多</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></li><li><a class="site-page" href="/tp/"><i class="fa-fw fa fa-book"></i><span> 测试</span></a></li></ul></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97"><span class="toc-text">阅读指南</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-text">1. 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%BB%91%E8%8B%B9%E6%9E%9C"><span class="toc-text">1.1. 什么是黑苹果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E6%88%91%E7%9A%84%E7%94%B5%E8%84%91%E8%83%BD%E8%A3%85%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%90%97"><span class="toc-text">1.2. 我的电脑能装黑苹果吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%87%86%E5%A4%87%E5%B7%A5%E5%85%B7"><span class="toc-text">1.3. 准备工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%A3%85-macOS"><span class="toc-text">1.4. 为什么要装 macOS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="toc-text">2. 前期准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-BIOS-%E8%AE%BE%E7%BD%AE"><span class="toc-text">2.1. BIOS 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%89%A9%E5%A4%A7EFI%E5%88%86%E5%8C%BA"><span class="toc-text">2.2. 扩大EFI分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E5%B7%B2%E7%BB%8F%E5%AE%89%E8%A3%85%E4%BA%86Windows"><span class="toc-text">2.2.1. 已经安装了Windows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E8%BF%98%E6%B2%A1%E5%AE%89%E8%A3%85Windows"><span class="toc-text">2.2.2. 还没安装Windows</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C"><span class="toc-text">2.3. 镜像制作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD"><span class="toc-text">2.3.1. 镜像下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E9%95%9C%E5%83%8F%E5%88%BB%E5%BD%95"><span class="toc-text">2.3.2. 镜像刻录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Clover-OpenCore-%E4%BB%8B%E7%BB%8D"><span class="toc-text">3. Clover&#x2F;OpenCore 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-OpenCore-%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.1. OpenCore 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Clover-%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.2. Clover 介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F"><span class="toc-text">4. 修改镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%AF%BB%E6%89%BE-EFI"><span class="toc-text">4.1. 寻找 EFI</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-EFI"><span class="toc-text">5. 构建自己的 EFI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-OpenCore-%E7%9A%84%E4%B8%8B%E8%BD%BD"><span class="toc-text">5.1. OpenCore 的下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-OpenCore-%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">5.2. OpenCore 的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%BF%85%E5%A4%87%E6%96%87%E4%BB%B6"><span class="toc-text">5.3. 必备文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Config-plist"><span class="toc-text">6. Config.plist</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4"><span class="toc-text">6.1. 详细步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E6%9B%B4%E5%90%8D"><span class="toc-text">6.2. 更名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E9%A9%B1%E5%8A%A8%E5%A1%AB%E5%86%99%E9%A1%BA%E5%BA%8F"><span class="toc-text">6.3. 驱动填写顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-1-ACPI-%E6%B3%A8%E5%85%A5%E9%A1%BA%E5%BA%8F"><span class="toc-text">6.3.1. ACPI 注入顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-2-Kernel-%E6%B3%A8%E5%85%A5%E9%A1%BA%E5%BA%8F"><span class="toc-text">6.3.2. Kernel 注入顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-3-Drivers-%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F"><span class="toc-text">6.3.3. Drivers 加载顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-%E6%9C%BA%E5%9E%8B%E4%BF%AE%E6%94%B9"><span class="toc-text">6.4. 机型修改</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85"><span class="toc-text">7. 开始安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA"><span class="toc-text">7.1. 创建分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E5%AE%89%E8%A3%85"><span class="toc-text">7.2. 安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E5%87%BA%E5%8F%91%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-text">8. 出发前的准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E5%85%81%E8%AE%B8%E4%BB%BB%E4%BD%95%E6%9D%A5%E6%BA%90%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">8.1. 允许任何来源的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-%E9%87%8D%E5%BB%BA%E7%BC%93%E5%AD%98"><span class="toc-text">8.2. 重建缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-%E6%8A%9B%E5%BC%83U%E7%9B%98%E5%90%AF%E5%8A%A8"><span class="toc-text">8.3. 抛弃U盘启动</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E5%AE%8C%E5%96%84"><span class="toc-text">9. 完善</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E6%9C%BA%E5%9E%8B%E4%BF%AE%E6%94%B9"><span class="toc-text">9.1. 机型修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E6%98%BE%E5%8D%A1"><span class="toc-text">9.2. 显卡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-1-%E6%9F%A5%E6%89%BE-id"><span class="toc-text">9.2.1. 查找 id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-2-%E6%B3%A8%E5%85%A5-id"><span class="toc-text">9.2.2. 注入 id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-3-%E6%B3%A8%E5%85%A5-framebuffer"><span class="toc-text">9.2.3. 注入 framebuffer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-%E5%A3%B0%E5%8D%A1"><span class="toc-text">9.3. 声卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4-%E7%BD%91%E5%8D%A1"><span class="toc-text">9.4. 网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5-CPU-%E5%8F%98%E9%A2%91"><span class="toc-text">9.5. CPU 变频</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-6-HiDPI"><span class="toc-text">9.6. HiDPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-7-ACPI-%E8%A1%A5%E4%B8%81"><span class="toc-text">9.7. ACPI 补丁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-8-USB-%E5%AE%9A%E5%88%B6"><span class="toc-text">9.8. USB 定制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E7%BB%93%E5%B0%BE"><span class="toc-text">10. 结尾</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-%E7%89%88%E6%9D%83%E9%B8%A3%E8%B0%A2"><span class="toc-text">11. 版权鸣谢</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_hack.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Tony's Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 更多</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></li><li><a class="site-page" href="/tp/"><i class="fa-fw fa fa-book"></i><span> 测试</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">如何在你的电脑上安装黑苹果</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-15T13:00:00.000Z" title="发表于 2020-05-15 21:00:00">2020-05-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-05-15T13:00:00.000Z" title="更新于 2020-05-15 21:00:00">2020-05-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">9.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>31分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>现在网络上的黑苹果教程很多，也有不少写的非常好，但是大部分教程仅包含很小的一部分，具体讲到怎么折腾，怎么设置，怎样完善的帖子却很少。新手遇到问题不仅需要大量查贴，还往往徒劳无功。</p>
 <p>随着苹果公司 macOS 的更新迭代，功能越来越强大，越来越吸引人，安装黑苹果的需求也越来越大。</p>
 <p>而现在已经是2020年，黑苹果经历多年的发展，已经非常完善了，但是教程却不完善。</p>
 <p>所以我萌生了写这篇文章的想法，希望可以帮助想安装黑苹果的同学。<strong>内容也许并不完全科学准确</strong>，为了照顾基础薄弱的同学，<strong>也会比较啰嗦</strong>，但是可以给各位提供成功安装的方法和研究的方向。</p>
@@ -129,7 +142,7 @@ ga('send', 'pageview');
 <hr>
 <h1 id="2-前期准备"><a href="#2-前期准备" class="headerlink" title="2. 前期准备"></a>2. 前期准备</h1><p>如果你已经下定决心要折腾，那么我们马上开始。请在你的手机/平板/第二台电脑上打开本网页，以方便日后抢救（狗头）。经过多年的经验积累，网上的教程已经很详尽，而这篇文章会将我的安装经验和网上我认为最好的教程相结合，尽量解决问题。</p>
 <h2 id="2-1-BIOS-设置"><a href="#2-1-BIOS-设置" class="headerlink" title="2.1. BIOS 设置"></a>2.1. BIOS 设置</h2><p>很多人就是这一步没做，导致启动失败。每台电脑的 BIOS 设置项目名称也有可能不一样，有些选项不禁用也没有关系，<strong>请善用搜索和翻译软件，多尝试</strong>。<strong>在设置之前先更新 BIOS</strong>。具体如何进BIOS系统因电脑而异，请自行搜索。另外，如果你打算顺便重新安装 Windows，<strong>建议在完成 BIOS 设置之后再进行安装</strong>，会少很多不必要的麻烦。</p>
-<p>需要更改以下设置：（参考：<a href="https://imacos.top/2020/01/10/1614/" target="_blank" rel="noopener">Link1-Clover设置</a>、<a href="https://khronokernel-2.gitbook.io/opencore-vanilla-desktop-guide/" target="_blank" rel="noopener">Link2-OC设置（推荐看看）</a>、<a href="https://blog.daliansky.net/OpenCore-BootLoader.html" target="_blank" rel="noopener">Link3-OC设置</a>）</p>
+<p>需要更改以下设置：（参考：<a target="_blank" rel="noopener" href="https://imacos.top/2020/01/10/1614/">Link1-Clover设置</a>、<a target="_blank" rel="noopener" href="https://khronokernel-2.gitbook.io/opencore-vanilla-desktop-guide/">Link2-OC设置（推荐看看）</a>、<a target="_blank" rel="noopener" href="https://blog.daliansky.net/OpenCore-BootLoader.html">Link3-OC设置</a>）</p>
 <p><strong>Clover:</strong></p>
 <table>
 <thead>
@@ -252,7 +265,7 @@ ga('send', 'pageview');
 <tr>
 <td>SATA Mode</td>
 <td>AHCI</td>
-<td>应该是最快速的硬盘模式（更改之后需要一些方法来恢复Windows：<a href="https://www.mainblog.cn/189.html" target="_blank" rel="noopener">教程</a>）</td>
+<td>应该是最快速的硬盘模式（更改之后需要一些方法来恢复Windows：<a target="_blank" rel="noopener" href="https://www.mainblog.cn/189.html">教程</a>）</td>
 </tr>
 </tbody></table>
 <p><strong>以上很多选项没有也不要紧！之后直接U盘启动来验证。</strong></p>
@@ -261,13 +274,13 @@ ga('send', 'pageview');
 <p>在此感谢 @R.A.L 帮忙试错</p>
 <p>分为两种情况：</p>
 <h3 id="2-2-1-已经安装了Windows"><a href="#2-2-1-已经安装了Windows" class="headerlink" title="2.2.1. 已经安装了Windows"></a>2.2.1. 已经安装了Windows</h3><ol>
-<li>使用U盘制作PE系统（这里推荐<a href="http://www.wepe.com.cn/download.html" target="_blank" rel="noopener">微PE</a>）。</li>
-<li>U盘启动后（<a href="https://imgsa.baidu.com/exp/w=480/sign=35eceef39d529822053338cbe7cb7b3b/b3119313b07eca8016f7ebd39c2397dda1448310.jpg" target="_blank" rel="noopener">按键图</a>），<strong>备份系统EFI分区内的文件。</strong></li>
+<li>使用U盘制作PE系统（这里推荐<a target="_blank" rel="noopener" href="http://www.wepe.com.cn/download.html">微PE</a>）。</li>
+<li>U盘启动后（<a target="_blank" rel="noopener" href="https://imgsa.baidu.com/exp/w=480/sign=35eceef39d529822053338cbe7cb7b3b/b3119313b07eca8016f7ebd39c2397dda1448310.jpg">按键图</a>），<strong>备份系统EFI分区内的文件。</strong></li>
 <li>打开PE系统上的<strong>DiskGenius</strong>，适当缩小或删除 MSR 分区，扩大 ESP 分区至300M（我直接给了512M）。</li>
 <li>保存更改，重启。</li>
 </ol>
 <h3 id="2-2-2-还没安装Windows"><a href="#2-2-2-还没安装Windows" class="headerlink" title="2.2.2. 还没安装Windows"></a>2.2.2. 还没安装Windows</h3><ol>
-<li><p>使用U盘制作 Windows 安装镜像（<a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener">MSDN</a>）。</p>
+<li><p>使用U盘制作 Windows 安装镜像（<a target="_blank" rel="noopener" href="https://msdn.itellyou.cn/">MSDN</a>）。</p>
 </li>
 <li><p>在分区界面直接按 <strong>Shift+F10</strong>，弹出命令提示符窗口。</p>
 </li>
@@ -278,7 +291,7 @@ ga('send', 'pageview');
 <li><p><strong>select disk 1</strong>，最后这个数字是你<strong>系统盘的编号</strong>，千万不要选错了。我这里是500G的固态硬盘，磁盘 1。</p>
 </li>
 </ol>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d57ac2a9a83be5a99df4.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d57ac2a9a83be5a99df4.png"></p>
 <ol start="6">
 <li>输入 <strong>clean</strong> 命令删除这个磁盘上所有的分区，<strong>注意这会清除这块硬盘上的所有数据！</strong></li>
 <li>输入 <strong>convert gpt</strong> 命令将磁盘转换为GPT分区表</li>
@@ -290,10 +303,10 @@ ga('send', 'pageview');
 <li><strong>选中主分区</strong>，点下一步继续完成安装。</li>
 </ol>
 <h2 id="2-3-镜像制作"><a href="#2-3-镜像制作" class="headerlink" title="2.3. 镜像制作"></a>2.3. 镜像制作</h2><h3 id="2-3-1-镜像下载"><a href="#2-3-1-镜像下载" class="headerlink" title="2.3.1. 镜像下载"></a>2.3.1. 镜像下载</h3><p>成功回到 Windows 后，开始折腾黑苹果了。</p>
-<p>这里推荐下载我使用的<strong>远景论坛大佬Len</strong>的 <a href="http://bbs.pcbeta.com/viewthread-1850664-1-2.html" target="_blank" rel="noopener">Len’s DMG macOS 10.15.4 镜像</a></p>
+<p>这里推荐下载我使用的<strong>远景论坛大佬Len</strong>的 <a target="_blank" rel="noopener" href="http://bbs.pcbeta.com/viewthread-1850664-1-2.html">Len’s DMG macOS 10.15.4 镜像</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">文件校验值如下：</span><br><span class="line">CRC32: BA0E5D67</span><br><span class="line">MD5: 8291B89DBC64C7D1307F09A751FB03E7</span><br><span class="line">SHA-1: ECF3AAC559339BFDF45A7B70792B67756F29EBB9</span><br></pre></td></tr></table></figure>
 <h3 id="2-3-2-镜像刻录"><a href="#2-3-2-镜像刻录" class="headerlink" title="2.3.2. 镜像刻录"></a>2.3.2. 镜像刻录</h3><ol>
-<li>下载<a href="https://www.balena.io/etcher/" target="_blank" rel="noopener">Etcher</a>。</li>
+<li>下载<a target="_blank" rel="noopener" href="https://www.balena.io/etcher/">Etcher</a>。</li>
 <li>使用该软件打开镜像，<strong>选择你的U盘</strong>，点<code>Flash</code>。</li>
 <li>搞定，就这么简单。</li>
 </ol>
@@ -301,16 +314,16 @@ ga('send', 'pageview');
 <hr>
 <h1 id="3-Clover-OpenCore-介绍"><a href="#3-Clover-OpenCore-介绍" class="headerlink" title="3. Clover/OpenCore 介绍"></a>3. Clover/OpenCore 介绍</h1><p>Clover和OpenCore是黑苹果的两个主要的引导工具，你可以在你刻录好的U盘里看到它们的目录。</p>
 <p>一般我们只需要其中的一个就好，所以我建议你在折腾之前先选择好要使用Clover还是OpenCore，避免重复造轮子。下面简单介绍一下两种引导工具。</p>
-<h2 id="3-1-OpenCore-介绍"><a href="#3-1-OpenCore-介绍" class="headerlink" title="3.1. OpenCore 介绍"></a>3.1. OpenCore 介绍</h2><p><strong>参考黑果小兵的文章，详看黑果小兵的部落阁 - 精解 OpenCore：<a href="https://blog.daliansky.net/OpenCore-BootLoader.html" target="_blank" rel="noopener">https://blog.daliansky.net/OpenCore-BootLoader.html</a></strong></p>
-<p>OpenCore（简称OC）是一个新出现的引导工具。现由<a href="https://github.com/acidanthera" target="_blank" rel="noopener">@Acidanthera</a>进行维护，ta也是 Lilu，AppleALC 等黑苹果关键驱动的作者。 OpenCore 的诞生，目的是创造一个更加严谨的模组化的轻量引导系统，相关功能经过一段时间的打磨，已经足够稳定。</p>
+<h2 id="3-1-OpenCore-介绍"><a href="#3-1-OpenCore-介绍" class="headerlink" title="3.1. OpenCore 介绍"></a>3.1. OpenCore 介绍</h2><p><strong>参考黑果小兵的文章，详看黑果小兵的部落阁 - 精解 OpenCore：<a target="_blank" rel="noopener" href="https://blog.daliansky.net/OpenCore-BootLoader.html">https://blog.daliansky.net/OpenCore-BootLoader.html</a></strong></p>
+<p>OpenCore（简称OC）是一个新出现的引导工具。现由<a target="_blank" rel="noopener" href="https://github.com/acidanthera">@Acidanthera</a>进行维护，ta也是 Lilu，AppleALC 等黑苹果关键驱动的作者。 OpenCore 的诞生，目的是创造一个更加严谨的模组化的轻量引导系统，相关功能经过一段时间的打磨，已经足够稳定。</p>
 <p>OpenCore 的优点，简单概括起来就是：</p>
 <ul>
 <li><strong>类原生化。</strong>OpenCore 默认不带有任何界面，仅有的 GUI 也只供 debug 使用，设计的初衷就是实现像白苹果一样开机直接显示苹果 Logo，简单直接。支持原生开机快捷键，支持设置系统自带的启动硬盘选项等功能，将黑苹果“白苹果化”逐渐做到极致。</li>
 <li><strong>安全。</strong>OpenCore 支持对引导文件进行加密，对文件保险箱（FileVault) 有更强大的支持，并且现已支持 UEFI 安全启动（貌似还不稳定）</li>
 <li><strong>系统支持。</strong>从 2019 年 9 月以后，Acidanthera 开发的内核驱动 （Lilu，AppleALC 等等）<strong>「不再会」</strong> 在 Clover 上做兼容性测试。而且大量 Acidanthera 维护的独立UEFI驱动被合并入 OpenCore, 未来的开发直接与 OpenCore 绑定，<strong>且不再支持 Clover</strong>。</li>
 </ul>
-<h2 id="3-2-Clover-介绍"><a href="#3-2-Clover-介绍" class="headerlink" title="3.2. Clover 介绍"></a>3.2. Clover 介绍</h2><p>Clover 也是一个引导工具，官网：<a href="https://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">https://sourceforge.net/projects/cloverefiboot/</a></p>
-<p>国内的权威我认远景版主 Len 大神的编译，地址：<a href="http://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1740837" target="_blank" rel="noopener">http://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1740837</a></p>
+<h2 id="3-2-Clover-介绍"><a href="#3-2-Clover-介绍" class="headerlink" title="3.2. Clover 介绍"></a>3.2. Clover 介绍</h2><p>Clover 也是一个引导工具，官网：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/cloverefiboot/">https://sourceforge.net/projects/cloverefiboot/</a></p>
+<p>国内的权威我认远景版主 Len 大神的编译，地址：<a target="_blank" rel="noopener" href="http://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1740837">http://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1740837</a></p>
 <p>Clover的优点如下：</p>
 <ul>
 <li><strong>丰富的支持。</strong>Clover 诞生已有一定年份了，我们电脑里会出现的问题，在别人的电脑里基本上也出现过，只要仔细爬贴，一般不难解决。</li>
@@ -334,17 +347,17 @@ ga('send', 'pageview');
 </ul>
 <p><strong>这时有可能会出现报错，卡死等等各种问题，先不要灰心和紧张，下面给你提供一个捷径。</strong></p>
 <h2 id="4-1-寻找-EFI"><a href="#4-1-寻找-EFI" class="headerlink" title="4.1. 寻找 EFI"></a>4.1. 寻找 EFI</h2><p>黑苹果这个圈子里各路大神频出，为了给想体验黑苹果的人一个方向，减少大家重复造轮子，节约大家的时间，很多良心玩家提供了他们机型的 EFI 文件。<strong>一般只要机型一样，配置略有不同都没有关系</strong>，这些 EFI 可以很好地让我们成功安装。</p>
-<p><a href="https://github.com/y010204025" target="_blank" rel="noopener">@我意</a> 和<a href="https://github.com/daliansky" target="_blank" rel="noopener">@黑果小兵</a> 大佬整理了黑苹果长期维护机型的列表</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/y010204025">@我意</a> 和<a target="_blank" rel="noopener" href="https://github.com/daliansky">@黑果小兵</a> 大佬整理了黑苹果长期维护机型的列表</p>
 <ul>
-<li><p>黑果小兵的部落阁地址：<a href="https://blog.daliansky.net/Hackintosh-long-term-maintenance-model-checklist.html" target="_blank" rel="noopener">https://blog.daliansky.net/Hackintosh-long-term-maintenance-model-checklist.html</a></p>
+<li><p>黑果小兵的部落阁地址：<a target="_blank" rel="noopener" href="https://blog.daliansky.net/Hackintosh-long-term-maintenance-model-checklist.html">https://blog.daliansky.net/Hackintosh-long-term-maintenance-model-checklist.html</a></p>
 </li>
-<li><p>GitHub仓库地址：<a href="https://github.com/daliansky/Hackintosh" target="_blank" rel="noopener">https://github.com/daliansky/Hackintosh</a></p>
+<li><p>GitHub仓库地址：<a target="_blank" rel="noopener" href="https://github.com/daliansky/Hackintosh">https://github.com/daliansky/Hackintosh</a></p>
 </li>
 </ul>
 <p>在此应该<strong>感谢各位大神的无私奉献</strong>。你也可以在上面找到我的OC项目←_←</p>
 <p>另外，列表上的机型EFI不代表就是最好的，请善用搜索，多在远景论坛和 GitHub 找找，最适合自己的机器才最重要。</p>
 <p>假如你幸运地在上面找到了你的机型，请先看看作者有没有发布 Release 提供下载，没有的话就直接点击<em>Clone or download</em> 按钮下载。</p>
-<p>下载完解压缩，将你U盘里原有的 /OC 和 /Clover 目录删除（<strong>注意备份！</strong>），将解压出的 /OC 或 /Clover 目录复制到你<strong>U盘的 EFI 文件夹下</strong>，即可结束修改镜像和构建 EFI 步骤，跳到<a href="https://tonyleelyy.top/42403/#7-开始安装">开始安装</a>。</p>
+<p>下载完解压缩，将你U盘里原有的 /OC 和 /Clover 目录删除（<strong>注意备份！</strong>），将解压出的 /OC 或 /Clover 目录复制到你<strong>U盘的 EFI 文件夹下</strong>，即可结束修改镜像和构建 EFI 步骤，跳到<a href="https://tonyleelyy.top/42403/#7-%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85">开始安装</a>。</p>
 <hr>
 <h1 id="5-构建自己的-EFI"><a href="#5-构建自己的-EFI" class="headerlink" title="5. 构建自己的 EFI"></a>5. 构建自己的 EFI</h1><p>这一步至关重要，为了方便查阅，把原本是 4.2 的内容直接开了新的第5章。</p>
 <p>在 4.1 的时候找到了自己机型 EFI 的，可以直接跳过本章，但也建议你看看。</p>
@@ -352,12 +365,12 @@ ga('send', 'pageview');
 <h2 id="5-1-OpenCore-的下载"><a href="#5-1-OpenCore-的下载" class="headerlink" title="5.1. OpenCore 的下载"></a>5.1. OpenCore 的下载</h2><ul>
 <li><p>OpenCore 版本的选择</p>
 <ul>
-<li><a href="https://github.com/acidanthera/OpenCorePkg/releases" target="_blank" rel="noopener">OpenCorePkg</a> 官方版本，稳定，更新较慢。直接下载最新 release 的 debug 版本（推荐）</li>
-<li><a href="https://github.com/williambj1/OpenCore-Factory/blob/master/README_zh-Hans.md" target="_blank" rel="noopener">OpenCore-Factory</a> 每8小时自动从官方的源码库编译的最新版本，版本更新迅速，可供尝鲜。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/OpenCorePkg/releases">OpenCorePkg</a> 官方版本，稳定，更新较慢。直接下载最新 release 的 debug 版本（推荐）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/williambj1/OpenCore-Factory/blob/master/README_zh-Hans.md">OpenCore-Factory</a> 每8小时自动从官方的源码库编译的最新版本，版本更新迅速，可供尝鲜。</li>
 </ul>
 </li>
-<li><p><a href="https://github.com/corpnewt/ProperTree" target="_blank" rel="noopener">ProperTree </a> 直接点击 <em>Clone or download</em> 即可下载。</p>
-<p>这是基于 Python 的 Plist 编辑器，所以你还要下载安装 <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python</a>。安装时勾选 Add Python 3.8 to PATH，直接 Install now 即可，最后一步点击一下小盾牌按钮，完成。使用 ProperTree 双击文件夹内的 .bat 文件即可运行。其他工具暂时<strong>一律不推荐</strong>。</p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/corpnewt/ProperTree">ProperTree </a> 直接点击 <em>Clone or download</em> 即可下载。</p>
+<p>这是基于 Python 的 Plist 编辑器，所以你还要下载安装 <a target="_blank" rel="noopener" href="https://www.python.org/downloads/">Python</a>。安装时勾选 Add Python 3.8 to PATH，直接 Install now 即可，最后一步点击一下小盾牌按钮，完成。使用 ProperTree 双击文件夹内的 .bat 文件即可运行。其他工具暂时<strong>一律不推荐</strong>。</p>
 </li>
 </ul>
 <h2 id="5-2-OpenCore-的结构"><a href="#5-2-OpenCore-的结构" class="headerlink" title="5.2. OpenCore 的结构"></a>5.2. OpenCore 的结构</h2><p>如果你下载的是我上面给出的两个版本的 OpenCore，会得到3个文件夹，但这些解压出来文件夹并不是你EFI的文件结构。</p>
@@ -381,11 +394,11 @@ ga('send', 'pageview');
 </li>
 </ul>
 <p>使用图片展示应该会更加清晰：</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5e982050c2a9a83be565e088.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5e982050c2a9a83be565e088.png"></p>
 <p><strong>请先在 Windows 桌面中新建好 /OC 目录和其二级目录 /ACPI, /Drivers, /Kexts, /Tools。</strong></p>
 <p>你刻录的U盘的 EFI 目录或许不含 /Microsoft 文件夹，因为那是系统自动生成的，在你的电脑 EFI 文件夹里，不要移动和更改。</p>
 <p><em>部分朋友制作的 OpenCore 目录可能还会包含一个 /Resources 文件夹，那是放主题文件的。我们的目标是尽量白苹果化，不显示引导的画面，所以我们不用新建这个目录。</em></p>
-<h2 id="5-3-必备文件"><a href="#5-3-必备文件" class="headerlink" title="5.3. 必备文件"></a>5.3. 必备文件</h2><p>相信你已经下载好了 <a href="https://github.com/acidanthera/OpenCorePkg/releases" target="_blank" rel="noopener">OpenCorePkg</a> 的 DEBUG 版，请先解压文件，同时保留 .zip 源文件以供备份。</p>
+<h2 id="5-3-必备文件"><a href="#5-3-必备文件" class="headerlink" title="5.3. 必备文件"></a>5.3. 必备文件</h2><p>相信你已经下载好了 <a target="_blank" rel="noopener" href="https://github.com/acidanthera/OpenCorePkg/releases">OpenCorePkg</a> 的 DEBUG 版，请先解压文件，同时保留 .zip 源文件以供备份。</p>
 <ol>
 <li><p><strong>OpenCore.efi</strong>：首先我们先进入解压出来的 EFI → OC 目录。将 <strong>OpenCore.efi</strong> 复制到你准备好的空白 /OC 目录下。</p>
 </li>
@@ -393,58 +406,58 @@ ga('send', 'pageview');
 <ul>
 <li><p>进入解压出来的 EFI → OC → Drivers 目录，将 <strong>OpenRuntime.efi</strong> 复制到你的空白 /OC/Drivers 目录下。</p>
 </li>
-<li><p><a href="https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlus.efi" target="_blank" rel="noopener">HfsPlus.efi</a>，注意不要与 VboxHfs.efi 混用</p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlus.efi">HfsPlus.efi</a>，注意不要与 VboxHfs.efi 混用</p>
 </li>
 </ul>
-<p>至于为什么是上面这几个文件，请<strong>一定要阅读</strong> <a href="https://blog.daliansky.net/OpenCore-BootLoader.html#%E5%88%9B%E5%BB%BA-usb-%E5%90%AF%E5%8A%A8%E7%9B%98" target="_blank" rel="noopener">黑果小兵的部落阁 - 精解OpenCore 中的 3.2. 创建 USB 启动盘</a> - 基础文件结构，每台电脑需要的文件可能不同。但是文章内容已经很久没更新了，仅看说明即可，<strong>注意不要采用大佬上面的文件目录。</strong></p>
+<p>至于为什么是上面这几个文件，请<strong>一定要阅读</strong> <a target="_blank" rel="noopener" href="https://blog.daliansky.net/OpenCore-BootLoader.html#%E5%88%9B%E5%BB%BA-usb-%E5%90%AF%E5%8A%A8%E7%9B%98">黑果小兵的部落阁 - 精解OpenCore 中的 3.2. 创建 USB 启动盘</a> - 基础文件结构，每台电脑需要的文件可能不同。但是文章内容已经很久没更新了，仅看说明即可，<strong>注意不要采用大佬上面的文件目录。</strong></p>
 </li>
 <li><p><strong>/Kexts</strong>：接下来我们需要几个kexts，这是苹果系统的驱动文件。我们使用几个必备的驱动才能成功进入安装。<strong>全部放入 /OC/Kexts 文件夹内</strong>，只需 .kext 文件即可（Windows下会显示成文件夹）。</p>
 <ul>
-<li><a href="https://github.com/acidanthera/lilu/releases" target="_blank" rel="noopener">Lilu.kext</a> - 下面几个 Acidanthera 的驱动都要依赖这个。</li>
-<li><a href="https://github.com/acidanthera/VirtualSMC/releases" target="_blank" rel="noopener">VirtualSMC.kext</a> - 传感器驱动依赖。除了 kext 还要将压缩包里的 <strong>/Tools</strong> 内容复制到你的 <strong>/OC/Tools</strong> 文件夹内。</li>
-<li><a href="https://github.com/acidanthera/WhateverGreen/releases" target="_blank" rel="noopener">WhateverGreen.kext</a> - 显卡驱动。</li>
-<li>SMCBatteryManager.kext - 笔记本电源管理。在你下载的 <a href="https://github.com/acidanthera/VirtualSMC/releases" target="_blank" rel="noopener">VirtualSMC.kext</a> RELEASE 压缩文件里面。台式机不需要。</li>
-<li><a href="https://github.com/acidanthera/AppleALC/releases" target="_blank" rel="noopener">AppleALC.kext</a> - 声卡驱动。</li>
-<li><a href="https://bitbucket.org/RehabMan/os-x-usb-inject-all/downloads/" target="_blank" rel="noopener">USBInjectAll.kext</a> - USB驱动。</li>
-<li><a href="https://github.com/acidanthera/NVMeFix/releases" target="_blank" rel="noopener">NVMeFix.kext</a> - 官方推荐的 NVMe 补丁，NVMe 固态硬盘的用户使用即可。</li>
-<li><a href="https://github.com/al3xtjames/NoTouchID/releases" target="_blank" rel="noopener">NoTouchID.kext</a> - 解决电脑没有 Touch ID 导致的卡顿。</li>
-<li><a href="https://github.com/Mieze/RTL8111_driver_for_OS_X/releases" target="_blank" rel="noopener">RealtekRTL8111.kext</a> - 这只是我这一型号的网卡驱动，<strong>请在 Windows 查明自己的网卡型号再进行搜索。</strong>台式机自带主板一般使用的是这个：<a href="https://github.com/acidanthera/IntelMausi/releases" target="_blank" rel="noopener">IntelMausi.kext</a>。有线网卡驱动黑果小兵大佬写得很详细，请<a href="https://blog.daliansky.net/OpenCore-BootLoader.html#%E6%9C%89%E7%BA%BF%E7%BD%91%E5%8D%A1" target="_blank" rel="noopener">查阅</a>。</li>
-<li><a href="https://github.com/alexandred/VoodooI2C/releases" target="_blank" rel="noopener">VoodooI2C.kext</a> - I2C 触摸板驱动，笔记本专用。</li>
-<li><a href="https://github.com/acidanthera/VoodooPS2/releases" target="_blank" rel="noopener">VoodooPS2Controller.kext</a> PS2 键盘，触控板驱动，与上者结合一般就能驱动所有触控板和键盘了。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/lilu/releases">Lilu.kext</a> - 下面几个 Acidanthera 的驱动都要依赖这个。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/VirtualSMC/releases">VirtualSMC.kext</a> - 传感器驱动依赖。除了 kext 还要将压缩包里的 <strong>/Tools</strong> 内容复制到你的 <strong>/OC/Tools</strong> 文件夹内。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/WhateverGreen/releases">WhateverGreen.kext</a> - 显卡驱动。</li>
+<li>SMCBatteryManager.kext - 笔记本电源管理。在你下载的 <a target="_blank" rel="noopener" href="https://github.com/acidanthera/VirtualSMC/releases">VirtualSMC.kext</a> RELEASE 压缩文件里面。台式机不需要。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/AppleALC/releases">AppleALC.kext</a> - 声卡驱动。</li>
+<li><a target="_blank" rel="noopener" href="https://bitbucket.org/RehabMan/os-x-usb-inject-all/downloads/">USBInjectAll.kext</a> - USB驱动。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/NVMeFix/releases">NVMeFix.kext</a> - 官方推荐的 NVMe 补丁，NVMe 固态硬盘的用户使用即可。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/al3xtjames/NoTouchID/releases">NoTouchID.kext</a> - 解决电脑没有 Touch ID 导致的卡顿。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Mieze/RTL8111_driver_for_OS_X/releases">RealtekRTL8111.kext</a> - 这只是我这一型号的网卡驱动，<strong>请在 Windows 查明自己的网卡型号再进行搜索。</strong>台式机自带主板一般使用的是这个：<a target="_blank" rel="noopener" href="https://github.com/acidanthera/IntelMausi/releases">IntelMausi.kext</a>。有线网卡驱动黑果小兵大佬写得很详细，请<a target="_blank" rel="noopener" href="https://blog.daliansky.net/OpenCore-BootLoader.html#%E6%9C%89%E7%BA%BF%E7%BD%91%E5%8D%A1">查阅</a>。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/alexandred/VoodooI2C/releases">VoodooI2C.kext</a> - I2C 触摸板驱动，笔记本专用。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/VoodooPS2/releases">VoodooPS2Controller.kext</a> PS2 键盘，触控板驱动，与上者结合一般就能驱动所有触控板和键盘了。</li>
 </ul>
 </li>
-<li><p><strong>config.plist</strong>：打开你下载的<a href="https://github.com/acidanthera/OpenCorePkg/releases" target="_blank" rel="noopener">OpenCorePkg</a>，进入 /Docs 文件夹，复制 SampleFull.plist 文件到你的 /OC 文件夹内，将其重命名为 “config.plist”。</p>
+<li><p><strong>config.plist</strong>：打开你下载的<a target="_blank" rel="noopener" href="https://github.com/acidanthera/OpenCorePkg/releases">OpenCorePkg</a>，进入 /Docs 文件夹，复制 SampleFull.plist 文件到你的 /OC 文件夹内，将其重命名为 “config.plist”。</p>
 </li>
 </ol>
 <p><strong>经过 章节5 的一顿操作，你新建的 /OC 文件夹应该包含以下内容：</strong></p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5e982050c2a9a83be565e085.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5e982050c2a9a83be565e085.png"></p>
 <hr>
 <h1 id="6-Config-plist"><a href="#6-Config-plist" class="headerlink" title="6. Config.plist"></a>6. Config.plist</h1><p>这一章讲述 <code>config.plist</code> 的构建。</p>
-<p>OpenCore 的 config 出了名的复杂，幸好有 Xjn 大佬的 <a href="https://blog.xjn819.com/?p=543" target="_blank" rel="noopener">文章</a>，我们才能清晰地完成所有操作。</p>
-<p>因为 Xjn 大佬已经写得非常详细了，我不在此班门弄斧，接下来我会跳过很多内容，请直接到大佬的 <a href="https://blog.xjn819.com/?p=543" target="_blank" rel="noopener">文章</a> 下查看设置。也可以直接跳过第6章，看大佬的。</p>
+<p>OpenCore 的 config 出了名的复杂，幸好有 Xjn 大佬的 <a target="_blank" rel="noopener" href="https://blog.xjn819.com/?p=543">文章</a>，我们才能清晰地完成所有操作。</p>
+<p>因为 Xjn 大佬已经写得非常详细了，我不在此班门弄斧，接下来我会跳过很多内容，请直接到大佬的 <a target="_blank" rel="noopener" href="https://blog.xjn819.com/?p=543">文章</a> 下查看设置。也可以直接跳过第6章，看大佬的。</p>
 <p>请使用 <code>ProperTree</code> 来打开你的 /OC 目录下的 <code>config.plist</code>。（不要手痒关闭命令行界面）</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d63bc2a9a83be5aa917b.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d63bc2a9a83be5aa917b.png"></p>
 <p>开始最好玩的步骤。</p>
-<h2 id="6-1-详细步骤"><a href="#6-1-详细步骤" class="headerlink" title="6.1. 详细步骤"></a>6.1. 详细步骤</h2><p><strong>请看 xjn 大神的文章：<a href="https://blog.xjn819.com/?p=543" target="_blank" rel="noopener">https://blog.xjn819.com/?p=543</a></strong></p>
+<h2 id="6-1-详细步骤"><a href="#6-1-详细步骤" class="headerlink" title="6.1. 详细步骤"></a>6.1. 详细步骤</h2><p><strong>请看 xjn 大神的文章：<a target="_blank" rel="noopener" href="https://blog.xjn819.com/?p=543">https://blog.xjn819.com/?p=543</a></strong></p>
 <p><strong>务必每一项都确认清楚。</strong>我这里仅作补充。</p>
 <p>每台电脑的情况不同，<strong>请勿照搬照抄。</strong></p>
 <p>大神的教程主要适用于台式机，使用笔记本我们还需要更改一些东西。</p>
 <h2 id="6-2-更名"><a href="#6-2-更名" class="headerlink" title="6.2. 更名"></a>6.2. 更名</h2><p>部分机器需要更改一些 DSDT 项目才能正常进入系统。看完大神的帖子之后，若无法启动，请尝试以下修改。以下改名，<code>能省则省</code>。</p>
 <ul>
 <li><p><code>EC</code> 改名：对于一些笔记本机型，我们需要通过更改 EC 控制器的名称才能进入 macOS 10.15 系统。修改如下：</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d6aac2a9a83be5ab1de5.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d6aac2a9a83be5ab1de5.png"></p>
 </li>
-<li><p>Dell 笔记本必须同时使用 <code>OSID to XSID</code> 和 <code>_OSI to XOSI</code>更名，在 Config.plist 里 ACPI - Path 项中添加（注意顺序）：</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d6fdc2a9a83be5ab780e.png"  alt=""></p>
+<li><p>Dell 笔记本必须同时使用 <code>OSID to XSID</code> 和 <code>_OSI to XOSI </code>更名，在 Config.plist 里 ACPI - Path 项中添加（注意顺序）：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d6fdc2a9a83be5ab780e.png"></p>
 </li>
 <li><p>部分华擎、华硕、微星主板需要使用 <code>RTC</code> 更名，修改如下：</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d780c2a9a83be5ac05cb.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d780c2a9a83be5ac05cb.png"></p>
 </li>
 </ul>
 <h2 id="6-3-驱动填写顺序"><a href="#6-3-驱动填写顺序" class="headerlink" title="6.3. 驱动填写顺序"></a>6.3. 驱动填写顺序</h2><h3 id="6-3-1-ACPI-注入顺序"><a href="#6-3-1-ACPI-注入顺序" class="headerlink" title="6.3.1. ACPI 注入顺序"></a>6.3.1. ACPI 注入顺序</h3><p>在 ACPI - Add 中注入 SSDT 文件，我们无需注意顺序。</p>
 <h3 id="6-3-2-Kernel-注入顺序"><a href="#6-3-2-Kernel-注入顺序" class="headerlink" title="6.3.2. Kernel 注入顺序"></a>6.3.2. Kernel 注入顺序</h3><p>在  Kernel - Add 中，添加 Kext 驱动文件需要按照一定顺序：</p>
 <p><code>Lilu.kext</code> → <code>VirtualSMC.kext</code> → <code>WhateverGreen.kext</code> → <code>SMCBatteryManager.kext</code> → <code>SMCLightSensor.kext</code> → <code>SMCProcessor.kext</code> → <code>SMCSuperIO.kext</code> → <code>AppleALC.kext</code> → <code>其他 Kexts</code></p>
-<p>具体更加详细的驱动加载顺序，请阅读 黑果小兵 总结的 <a href="https://github.com/daliansky/OC-little/tree/master/%E5%B8%B8%E8%A7%81%E9%A9%B1%E5%8A%A8%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F" target="_blank" rel="noopener">OC-little / 常见驱动加载顺序</a>。</p>
+<p>具体更加详细的驱动加载顺序，请阅读 黑果小兵 总结的 <a target="_blank" rel="noopener" href="https://github.com/daliansky/OC-little/tree/master/%E5%B8%B8%E8%A7%81%E9%A9%B1%E5%8A%A8%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F">OC-little / 常见驱动加载顺序</a>。</p>
 <h3 id="6-3-3-Drivers-加载顺序"><a href="#6-3-3-Drivers-加载顺序" class="headerlink" title="6.3.3. Drivers 加载顺序"></a>6.3.3. Drivers 加载顺序</h3><p>在 UEFI - Drivers 中，填入 Drivers 文件夹里的 .efi 文件需要遵循一定顺序：</p>
 <ol start="2">
 <li><code>MemoryAllocation.efi</code></li>
@@ -458,70 +471,70 @@ ga('send', 'pageview');
 <hr>
 <h1 id="7-开始安装"><a href="#7-开始安装" class="headerlink" title="7. 开始安装"></a>7. 开始安装</h1><p>完成了上面的所有步骤后，我们就可以开始安装步骤了。</p>
 <h2 id="7-1-创建分区"><a href="#7-1-创建分区" class="headerlink" title="7.1. 创建分区"></a>7.1. 创建分区</h2><p>首先在你的 Windows 上，打开<code>磁盘管理</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d7cdc2a9a83be5ac6344.png"  alt=""></p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d82dc2a9a83be5accf1a.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d7cdc2a9a83be5ac6344.png"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d82dc2a9a83be5accf1a.png"></p>
 <p>对着你要安装的硬盘 <code>右键</code> - <code>压缩卷</code>，输入你打算分配给 macOS 的空间大小，一般为128G以上最佳。</p>
 <p>接着右键点击分配出来的 “未分配” 空间，<code>新建简单卷</code>，在格式化这一步选择<code>不要格式化这个卷</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d88ac2a9a83be5ad48e0.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d88ac2a9a83be5ad48e0.png"></p>
 <p>点击下一步，完成操作。</p>
 <h2 id="7-2-安装"><a href="#7-2-安装" class="headerlink" title="7.2. 安装"></a>7.2. 安装</h2><p>首先重新插拔一下你的 USB 安装盘，有核显的话<strong>先拔掉独显的输出</strong>，将核显输出接口接到显示器上。</p>
-<p>开机，按 F12（<a href="https://imgsa.baidu.com/exp/w=480/sign=35eceef39d529822053338cbe7cb7b3b/b3119313b07eca8016f7ebd39c2397dda1448310.jpg" target="_blank" rel="noopener">按键图</a>）选择开机选项，选中U盘启动。进入 OC 界面后选择带有 <code>Install</code> 字样的一项，回车进入安装。</p>
+<p>开机，按 F12（<a target="_blank" rel="noopener" href="https://imgsa.baidu.com/exp/w=480/sign=35eceef39d529822053338cbe7cb7b3b/b3119313b07eca8016f7ebd39c2397dda1448310.jpg">按键图</a>）选择开机选项，选中U盘启动。进入 OC 界面后选择带有 <code>Install</code> 字样的一项，回车进入安装。</p>
 <blockquote>
 <p>若进入 OC 没有选择界面，请在 config.plist 中更改 <code>ShowPicker</code> 为 <code>True</code>，并设置一定时长的 <code>Timeout</code></p>
 </blockquote>
 <p>顺利的话，等待代码跑完，你就能看到 macOS 的安装界面了。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b44dc2a9a83be57f242e.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b44dc2a9a83be57f242e.png"></p>
 <p>首先选择语言，<code>简体中文</code>，点击<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b4bac2a9a83be57fa5f8.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b4bac2a9a83be57fa5f8.png"></p>
 <p>在安装界面选择<code>磁盘工具</code>，<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b616c2a9a83be58165e2.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b616c2a9a83be58165e2.png"></p>
 <p>进入<code>磁盘工具</code>界面后，点击左上角的<code>显示所有设备</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b6f7c2a9a83be5826b86.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b6f7c2a9a83be5826b86.png"></p>
 <p>选择你刚刚在 Windows 中创建好的分区，<code>不要误选</code>，我这里是虚拟机的名称，仅作演示。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b7c8c2a9a83be5837b3e.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b7c8c2a9a83be5837b3e.png"></p>
 <p>点击<code>抹掉</code>（务必再三确认选对了硬盘和分区），名称自选，格式选择 <code>APFS</code>，方案选择<code>GUID分区图</code>，点击<code>抹掉</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b845c2a9a83be5840cd5.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b845c2a9a83be5840cd5.png"></p>
 <p>完成后在左上角选择<code>磁盘工具</code> - <code>退出磁盘工具</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b91dc2a9a83be5850652.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b91dc2a9a83be5850652.png"></p>
 <p>选择<code>安装 macOS</code>，<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b940c2a9a83be5852e2b.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b940c2a9a83be5852e2b.png"></p>
 <p>选择<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b9a1c2a9a83be5859bf4.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b9a1c2a9a83be5859bf4.png"></p>
 <p><code>同意</code>协议。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b9bac2a9a83be585c1b3.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b9bac2a9a83be585c1b3.png"></p>
 <p><code>选择</code>你刚刚抹掉的磁盘分区，点击<code>安装</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2b9dbc2a9a83be585fb1c.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2b9dbc2a9a83be585fb1c.png"></p>
 <p>等待读条。完成后系统会自动重启，请再次选择进入 <code>OpenCore</code> 引导，并进入带有 <code>macOS Install</code> 的选项继续安装。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2ce37c2a9a83be5a02dab.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2ce37c2a9a83be5a02dab.png"></p>
 <p>系统可能会自动重启多次，务必选择带有 <code>macOS Install</code> 的选项。完成安装后，会出现 <code>Boot macOS form xxx</code> （你的硬盘名字）选项，选择进入。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2cf16c2a9a83be5a17a4b.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2cf16c2a9a83be5a17a4b.png"></p>
 <p>进入 <code>Boot macOS form xxx</code> 之后，选择地区<code>中国大陆</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2cfecc2a9a83be5a2b8f6.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2cfecc2a9a83be5a2b8f6.png"></p>
 <p>可以设置输入法，完成后<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2cfecc2a9a83be5a2b8fb.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2cfecc2a9a83be5a2b8fb.png"></p>
 <p>选择网络连接方式，<code>我的电脑不接入互联网</code>。或选择<code>本地网络</code>，并在之后的步骤中<code>跳过</code>登录 Apple ID。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479b1.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479b1.png"></p>
 <p>了解 Apple 的数据与隐私策略后，点击<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2cfecc2a9a83be5a2b909.png"  alt=""></p>
-<p>选择<code>不传输任何信息</code>，<code>继续</code>。<br><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479b6.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2cfecc2a9a83be5a2b909.png"></p>
+<p>选择<code>不传输任何信息</code>，<code>继续</code>。<br><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479b6.png"></p>
 <p>阅读并同意“macOS 软件许可协议”。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479bd.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479bd.png"></p>
 <p>创建<code>本地电脑账户</code>，<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479c0.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479c0.png"></p>
 <p>快捷设置界面，<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479ca.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d136c2a9a83be5a479ca.png"></p>
 <p><code>取消勾选</code>“与 App 开发者共享崩溃与使用数据”，<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d2c7c2a9a83be5a65b97.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d2c7c2a9a83be5a65b97.png"></p>
 <p>屏幕使用时间选择<code>稍后设置</code>。Siri 设置选择<code>继续</code>（忘记截图了）。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d2c7c2a9a83be5a65b99.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d2c7c2a9a83be5a65b99.png"></p>
 <p>选择外观，喜欢哪个选哪个，<code>继续</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d2c7c2a9a83be5a65b9d.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d2c7c2a9a83be5a65b9d.png"></p>
 <p>正在设置您的 Mac…噢不，是 Hackintosh Mac 啦！</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2d2c7c2a9a83be5a65ba6.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2d2c7c2a9a83be5a65ba6.png"></p>
 <p>静等完成之后，进入桌面！OHHHHHHHHH！</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2dec0c2a9a83be5b45fd0.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2dec0c2a9a83be5b45fd0.png"></p>
 <hr>
-<h1 id="8-出发前的准备"><a href="#8-出发前的准备" class="headerlink" title="8. 出发前的准备"></a>8. 出发前的准备</h1><p>在开始折腾之前，我们先要完成一些设置。以下部分内容借鉴<a href="https://blog.daliansky.net/Lenovo-Xiaoxin-PRO-13-2019-and-macOS-Catalina-Installation-Tutorial.html" target="_blank" rel="noopener">黑果小兵的部落阁</a>。</p>
+<h1 id="8-出发前的准备"><a href="#8-出发前的准备" class="headerlink" title="8. 出发前的准备"></a>8. 出发前的准备</h1><p>在开始折腾之前，我们先要完成一些设置。以下部分内容借鉴<a target="_blank" rel="noopener" href="https://blog.daliansky.net/Lenovo-Xiaoxin-PRO-13-2019-and-macOS-Catalina-Installation-Tutorial.html">黑果小兵的部落阁</a>。</p>
 <h2 id="8-1-允许任何来源的应用"><a href="#8-1-允许任何来源的应用" class="headerlink" title="8.1. 允许任何来源的应用"></a>8.1. 允许任何来源的应用</h2><p>打开<code>终端</code>，输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
 
@@ -532,13 +545,13 @@ ga('send', 'pageview');
 <h2 id="8-3-抛弃U盘启动"><a href="#8-3-抛弃U盘启动" class="headerlink" title="8.3. 抛弃U盘启动"></a>8.3. 抛弃U盘启动</h2><p>打开<code>终端</code>，输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diskutil list</span><br></pre></td></tr></table></figure>
 
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2e073c2a9a83be5b67e4c.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2e073c2a9a83be5b67e4c.png"></p>
 <p>出现磁盘分区表。</p>
 <p>再输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo diskutil mount disk0s1</span><br></pre></td></tr></table></figure>
 
 <p>挂载<code>系统盘</code> EFI 分区。记得将 <code>disk0s1</code> 改成你系统磁盘的 EFI 地址。系统已经帮你识别出来了。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea2e151c2a9a83be5b7b3a6.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea2e151c2a9a83be5b7b3a6.png"></p>
 <p>以同样的方法挂载<code>U盘</code>的 EFI 分区，我这里没有插入U盘，地址仅作演示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo diskutil mount disk0s1</span><br></pre></td></tr></table></figure>
 
@@ -554,21 +567,21 @@ ga('send', 'pageview');
 <p>或重启到 Windows，使用 <code>BOOTICE</code> 软件添加 UEFI 引导序列（<code>UEFI</code> - <code>修改启动序列</code> - <code>添加</code>）。</p>
 <p>恭喜，你已完成 macOS 的安装工作。接下来就是完善步骤了。</p>
 <hr>
-<h1 id="9-完善"><a href="#9-完善" class="headerlink" title="9. 完善"></a>9. 完善</h1><h2 id="9-1-机型修改"><a href="#9-1-机型修改" class="headerlink" title="9.1. 机型修改"></a>9.1. 机型修改</h2><p>启动 macOS 后，下载打开 <a href="https://mackie100projects.altervista.org/opencore-configurator/" target="_blank" rel="noopener">OpenCore Configurator</a>，不要加载自己的 config.plist（可以新建一个）。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea3daa5c2a9a83be57f66c1.png"  alt=""></p>
-<p>选择 <code>Platformlnfo-机型平台设置</code>，点击下方的小按钮，选择机型。可在黑果小兵的<a href="https://blog.daliansky.net/Intel-core-display-platformID-finishing.html" target="_blank" rel="noopener">文章</a>中查询。</p>
+<h1 id="9-完善"><a href="#9-完善" class="headerlink" title="9. 完善"></a>9. 完善</h1><h2 id="9-1-机型修改"><a href="#9-1-机型修改" class="headerlink" title="9.1. 机型修改"></a>9.1. 机型修改</h2><p>启动 macOS 后，下载打开 <a target="_blank" rel="noopener" href="https://mackie100projects.altervista.org/opencore-configurator/">OpenCore Configurator</a>，不要加载自己的 config.plist（可以新建一个）。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea3daa5c2a9a83be57f66c1.png"></p>
+<p>选择 <code>Platformlnfo-机型平台设置</code>，点击下方的小按钮，选择机型。可在黑果小兵的<a target="_blank" rel="noopener" href="https://blog.daliansky.net/Intel-core-display-platformID-finishing.html">文章</a>中查询。</p>
 <p>选择对应自己电脑 CPU 架构的机型，对应自己核显的型号，笔记本就选笔记本的型号，台式机就选台式机的型号。</p>
 <p>比如我的电脑是 i5-8300H，属于 Coffee Lake 架构，显卡是 UHD 630，选择 <code>MacBookPro15,1</code> 最合适。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea3dbc9c2a9a83be580a33c.png"  alt=""></p>
-<p>生成了各种数据之后，复制 System Serial Number，点击<code>检查序列号有效性</code>，或者直接到 <a href="https://checkcoverage.apple.com/cn/zh/" target="_blank" rel="noopener">https://checkcoverage.apple.com/cn/zh/</a> 输入序列号查询，如果出现红字 <code>“很抱歉，这个序列号无效。请检查您的信息并再试一次。”</code>，这个序列号就代表<code>可以使用</code>。否则重新生成直到无效为止。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea3dbc9c2a9a83be580a33e.png"  alt=""></p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea3daa5c2a9a83be57f66c4.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea3dbc9c2a9a83be580a33c.png"></p>
+<p>生成了各种数据之后，复制 System Serial Number，点击<code>检查序列号有效性</code>，或者直接到 <a target="_blank" rel="noopener" href="https://checkcoverage.apple.com/cn/zh/">https://checkcoverage.apple.com/cn/zh/</a> 输入序列号查询，如果出现红字 <code>“很抱歉，这个序列号无效。请检查您的信息并再试一次。”</code>，这个序列号就代表<code>可以使用</code>。否则重新生成直到无效为止。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea3dbc9c2a9a83be580a33e.png"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea3daa5c2a9a83be57f66c4.png"></p>
 <h2 id="9-2-显卡"><a href="#9-2-显卡" class="headerlink" title="9.2. 显卡"></a>9.2. 显卡</h2><p>拥有一个流畅的系统才能舒适地折腾。由于知识有限，这里只讨论<code>核显</code>的驱动。</p>
 <h3 id="9-2-1-查找-id"><a href="#9-2-1-查找-id" class="headerlink" title="9.2.1. 查找 id"></a>9.2.1. 查找 id</h3><p>首先了解你的 CPU 架构和核显型号，比如我的电脑是 i5-8300H，所以是 <code>Coffee Lake</code> 架构，核显是 <code>UHD 630</code>。</p>
-<p>了解了 CPU 架构和核显型号之后，我们到黑果小兵的<a href="https://blog.daliansky.net/Intel-core-display-platformID-finishing.html" target="_blank" rel="noopener">文章</a>中找到自己需要的平台，以我的 UHD 630 为例：</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea45c4cc2a9a83be51a4c14.png"  alt=""></p>
+<p>了解了 CPU 架构和核显型号之后，我们到黑果小兵的<a target="_blank" rel="noopener" href="https://blog.daliansky.net/Intel-core-display-platformID-finishing.html">文章</a>中找到自己需要的平台，以我的 UHD 630 为例：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea45c4cc2a9a83be51a4c14.png"></p>
 <p>通过 Windows 的设备管理器，我知道了我的显卡 ID 为 <code>3E9BXXXX</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea461bac2a9a83be5210566.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea461bac2a9a83be5210566.png"></p>
 <p>我使用的是笔记本，所以需要一个 <code>LVDS</code> 接口给内屏输出。</p>
 <p>综合以上，查表发现我能使用的 platform-id 为 <code>3E9B0000</code>，<code>3E9B0006</code>，<code>3E9B0009</code>。</p>
 <p>挑 STOLEN 内存大的来（为了日后可能驱动高分屏），淘汰 <code>3E9B0006</code>。直接选择第一个 <code>3E9B0000</code>。</p>
@@ -583,35 +596,35 @@ ga('send', 'pageview');
 <p>即得出 <code>AAPL,ig-platform-id</code> 的值为 <code>00009B3E</code>。</p>
 <p><code>device-id</code> 则直接使用，手动添加一个子项 device-id，属性为 Data，数值无需调转。</p>
 <p>通过以上的操作，我们修改为：</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea9156ec2a9a83be5f65197.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea9156ec2a9a83be5f65197.png"></p>
 <p>笔记本用户到这一步基本上已经可以开机启动了，但我们还需要注入 framebuffer 以达到更完美的表现。</p>
 <h3 id="9-2-3-注入-framebuffer"><a href="#9-2-3-注入-framebuffer" class="headerlink" title="9.2.3. 注入 framebuffer"></a>9.2.3. 注入 framebuffer</h3><blockquote>
-<p>对于大部分用户，可以进入 macOS 系统后再使用 Hackintool 方便地进行注入：请查阅 <a href="https://blog.daliansky.net/Intel-FB-Patcher-tutorial-and-insertion-pose.html" target="_blank" rel="noopener">黑果小兵的教程</a>。</p>
+<p>对于大部分用户，可以进入 macOS 系统后再使用 Hackintool 方便地进行注入：请查阅 <a target="_blank" rel="noopener" href="https://blog.daliansky.net/Intel-FB-Patcher-tutorial-and-insertion-pose.html">黑果小兵的教程</a>。</p>
 </blockquote>
 <p>对于 360，370，390 系主板的 Coffee Lake 台式机用户，和一些新主板用户，如果主板上没有 DP 接口，则需要加入 framebuffer 缓冲帧修补才能打开 HDMI 和 DVI 输出。</p>
 <p>但如果你恰巧没有 DP 接口，网上又没有适合你主板的 EFI 文件，那么我们则需要先随便填一个 <code>AAPL,ig-platform-id</code> ，比如 <code>01234567</code> ，且将 <code>device-id</code> 删除，让系统不能识别显卡型号，我们就可以插上 HDMI/DVI 接口进行安装了。</p>
 <p>安装流程结束后，我们可以再使用 Hackintool 进行 framebuffer 注入。</p>
 <h2 id="9-3-声卡"><a href="#9-3-声卡" class="headerlink" title="9.3. 声卡"></a>9.3. 声卡</h2><p>可以先启动 macOS 再折腾。</p>
 <p>首先使用 Hackintool 查找我们声卡的地址。一般叫做 HDEF 或 HDAS。记录我们声卡的地址，比如我的是 <code>PciRoot(0x0)/Pci(0x1f,0x3)</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea9862cc2a9a83be56d496d.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea9862cc2a9a83be56d496d.png"></p>
 <p>替换 config.plist 原来给出的第一项 PciRoot(0x0)/Pci(0x1b,0x3) 为我的声卡正确地址。</p>
-<p>config.plist 里面自带一个子项 <code>layout-id</code>，我们需要正确的 layout-id 才能驱动声卡。这里需要查询 <a href="https://blog.daliansky.net/AppleALC-Supported-codecs.html" target="_blank" rel="noopener">黑果小兵的列表</a>，比如我的声卡是 ALC236，可以使用的 layout-id 为3, 11, 13, 15, 16, 54, 99。我们需要一个个试过去。</p>
+<p>config.plist 里面自带一个子项 <code>layout-id</code>，我们需要正确的 layout-id 才能驱动声卡。这里需要查询 <a target="_blank" rel="noopener" href="https://blog.daliansky.net/AppleALC-Supported-codecs.html">黑果小兵的列表</a>，比如我的声卡是 ALC236，可以使用的 layout-id 为3, 11, 13, 15, 16, 54, 99。我们需要一个个试过去。</p>
 <p>填入 config 中我们需要先吧10进制的 id 转换成16进制的，以我的声卡正确 id <code>15</code>为例，转换得16进制值为 <code>f</code>，实际上为 <code>0f</code>。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea92d17c2a9a83be50edef6.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea92d17c2a9a83be50edef6.png"></p>
 <p>我们需要在后面添加6个0，补全所需的值，我的 layout-id 为 0F000000。填入声卡的子项中。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea92eccc2a9a83be510afbf.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea92eccc2a9a83be510afbf.png"></p>
 <p>保存，完成声卡的驱动。</p>
-<h2 id="9-4-网卡"><a href="#9-4-网卡" class="headerlink" title="9.4. 网卡"></a>9.4. 网卡</h2><p>有线网卡只要把对应型号的驱动放入 /OC/Kexts 并在 config.plist 加载即可。可查看 <a href="https://blog.daliansky.net/OpenCore-BootLoader.html#%E6%9C%89%E7%BA%BF%E7%BD%91%E5%8D%A1" target="_blank" rel="noopener">黑果小兵的帖子</a> 寻找驱动。</p>
+<h2 id="9-4-网卡"><a href="#9-4-网卡" class="headerlink" title="9.4. 网卡"></a>9.4. 网卡</h2><p>有线网卡只要把对应型号的驱动放入 /OC/Kexts 并在 config.plist 加载即可。可查看 <a target="_blank" rel="noopener" href="https://blog.daliansky.net/OpenCore-BootLoader.html#%E6%9C%89%E7%BA%BF%E7%BD%91%E5%8D%A1">黑果小兵的帖子</a> 寻找驱动。</p>
 <p>无线网卡目前还是最好用博通的卡，如DW1560，DW1820A 等，请自行搜索相关驱动教程。这些卡<br>已经被炒得非常贵了。</p>
-<p>蓝牙驱动一般是跟无线网卡的驱动一并给出，Intel 无线卡的蓝牙驱动使用<a href="https://github.com/zxystd" target="_blank" rel="noopener">zxystd</a>（<a href="http://i.pcbeta.com/space-uid-4858114.html" target="_blank" rel="noopener">qcwap2012</a>）大神制作的<a href="https://github.com/zxystd/IntelBluetoothFirmware" target="_blank" rel="noopener">IntelBluetoothFirmware</a>，放入 /OC/Kexts 文件夹并在 config 加载即可。若想精简驱动，可以仿照下面的编译驱动步骤，先找到自己网卡的对应驱动，删除 /fw 文件夹内的其他驱动（move to trash），然后编译即可。</p>
-<p>这里主要提供 Intel 无线网卡的驱动方法，多亏了<a href="https://github.com/zxystd" target="_blank" rel="noopener">zxystd</a>（<a href="http://i.pcbeta.com/space-uid-4858114.html" target="_blank" rel="noopener">qcwap2012</a>）大神的努力，目前已经实现了 Intel 无线网卡的驱动，并且网卡下载速度已经非常快了。</p>
+<p>蓝牙驱动一般是跟无线网卡的驱动一并给出，Intel 无线卡的蓝牙驱动使用<a target="_blank" rel="noopener" href="https://github.com/zxystd">zxystd</a>（<a target="_blank" rel="noopener" href="http://i.pcbeta.com/space-uid-4858114.html">qcwap2012</a>）大神制作的<a target="_blank" rel="noopener" href="https://github.com/zxystd/IntelBluetoothFirmware">IntelBluetoothFirmware</a>，放入 /OC/Kexts 文件夹并在 config 加载即可。若想精简驱动，可以仿照下面的编译驱动步骤，先找到自己网卡的对应驱动，删除 /fw 文件夹内的其他驱动（move to trash），然后编译即可。</p>
+<p>这里主要提供 Intel 无线网卡的驱动方法，多亏了<a target="_blank" rel="noopener" href="https://github.com/zxystd">zxystd</a>（<a target="_blank" rel="noopener" href="http://i.pcbeta.com/space-uid-4858114.html">qcwap2012</a>）大神的努力，目前已经实现了 Intel 无线网卡的驱动，并且网卡下载速度已经非常快了。</p>
 <ol>
 <li>在 App Store 下载 Xcode。</li>
-<li>Clone <a href="https://github.com/zxystd/itlwm" target="_blank" rel="noopener">itlwm</a> 的 master 分支，解压缩。</li>
+<li>Clone <a target="_blank" rel="noopener" href="https://github.com/zxystd/itlwm">itlwm</a> 的 master 分支，解压缩。</li>
 <li>用 Xcode 打开 itlwm.xcodeproj。</li>
 <li>打开之后可能会看到一个黄色的“⚠️1”在界面的上面，点击它，”Update to recommded settings” - “Perform Changes”。</li>
 </ol>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea98781c2a9a83be56e3aa0.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea98781c2a9a83be56e3aa0.png"></p>
 <ol>
 <li><p>点击左侧的文件夹按钮，找到 “mac80211.cpp” 点击进入。</p>
 </li>
@@ -620,14 +633,14 @@ ga('send', 'pageview');
 <li><p>把 ssid_name = “” 的 ssdt 改成你的Wi-Fi名</p>
 <p>把 ssid_pwd = “” 的 zxyssdt112233 改成你的Wi-Fi密码</p>
 <p>Command + S 保存</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea987ddc2a9a83be56e9100.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea987ddc2a9a83be56e9100.png"></p>
 </li>
 <li><p>点击上面 “My Mac” 左边的小方块，选 “itlwm”。</p>
 </li>
 <li><p>点击播放按钮 Build。</p>
 </li>
 </ol>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea9881bc2a9a83be56ecb7a.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea9881bc2a9a83be56ecb7a.png"></p>
 <ol>
 <li>Build successful之后在左边找到 Products 文件夹，右键 “itlwm.kext”，”Show in Finder”。</li>
 <li>复制 “itlwm.kext” 到一个你熟悉的目录。</li>
@@ -640,79 +653,92 @@ ga('send', 'pageview');
 <ol start="14">
 <li>开始享受你的Wi-Fi吧！</li>
 </ol>
-<p>驱动作者和版权：<br><a href="https://github.com/zxystd/itlwm" target="_blank" rel="noopener">https://github.com/zxystd/itlwm</a></p>
+<p>驱动作者和版权：<br><a target="_blank" rel="noopener" href="https://github.com/zxystd/itlwm">https://github.com/zxystd/itlwm</a></p>
 <h2 id="9-5-CPU-变频"><a href="#9-5-CPU-变频" class="headerlink" title="9.5. CPU 变频"></a>9.5. CPU 变频</h2><p>你可能需要一个畅通无阻的网络环境。</p>
-<p>具体教程：<a href="https://github.com/stevezhengshiqi/one-key-cpufriend/blob/master/README_CN.md" target="_blank" rel="noopener">https://github.com/stevezhengshiqi/one-key-cpufriend/blob/master/README_CN.md</a></p>
-<p>作者：<a href="https://github.com/stevezhengshiqi" target="_blank" rel="noopener">stevezhengshiqi</a></p>
+<p>具体教程：<a target="_blank" rel="noopener" href="https://github.com/stevezhengshiqi/one-key-cpufriend/blob/master/README_CN.md">https://github.com/stevezhengshiqi/one-key-cpufriend/blob/master/README_CN.md</a></p>
+<p>作者：<a target="_blank" rel="noopener" href="https://github.com/stevezhengshiqi">stevezhengshiqi</a></p>
 <h2 id="9-6-HiDPI"><a href="#9-6-HiDPI" class="headerlink" title="9.6. HiDPI"></a>9.6. HiDPI</h2><p>使用低分辨率屏幕，我们需要开启 HiDPI 以获得更好的观感。</p>
 <p>你可能需要一个畅通无阻的网络环境。</p>
-<p>具体教程：<a href="https://github.com/xzhih/one-key-hidpi/blob/master/README-zh.md" target="_blank" rel="noopener">https://github.com/xzhih/one-key-hidpi/blob/master/README-zh.md</a></p>
-<p>作者：<a href="https://github.com/xzhih" target="_blank" rel="noopener">ZeRo° Xu</a></p>
+<p>具体教程：<a target="_blank" rel="noopener" href="https://github.com/xzhih/one-key-hidpi/blob/master/README-zh.md">https://github.com/xzhih/one-key-hidpi/blob/master/README-zh.md</a></p>
+<p>作者：<a target="_blank" rel="noopener" href="https://github.com/xzhih">ZeRo° Xu</a></p>
 <h2 id="9-7-ACPI-补丁"><a href="#9-7-ACPI-补丁" class="headerlink" title="9.7. ACPI 补丁"></a>9.7. ACPI 补丁</h2><p>为了进一步完善系统，我们需要给机器添加 ACPI 补丁。</p>
-<p>黑果小兵和宪武两位大神提供了详细的 OpenCore ACPI 补丁<a href="https://github.com/daliansky/OC-little" target="_blank" rel="noopener">教程</a>，首先我们需要通过 Clover 提取机器原始的 DSDT。</p>
-<p>我们需要下载一个 Clover 引导，这里给出远景大佬的<a href="http://bbs.pcbeta.com/forum.php?mod=viewthread&tid=1740837&extra=page%3D1%26filter%3Dtypeid%26typeid%3D1369%26typeid%3D1369" target="_blank" rel="noopener">地址</a>，下载 CLOVERX64.efi.zip 即可。</p>
+<p>黑果小兵和宪武两位大神提供了详细的 OpenCore ACPI 补丁<a target="_blank" rel="noopener" href="https://github.com/daliansky/OC-little">教程</a>，首先我们需要通过 Clover 提取机器原始的 DSDT。</p>
+<p>我们需要下载一个 Clover 引导，这里给出远景大佬的<a target="_blank" rel="noopener" href="http://bbs.pcbeta.com/forum.php?mod=viewthread&tid=1740837&extra=page=1&filter=typeid&typeid=1369&typeid=1369">地址</a>，下载 CLOVERX64.efi.zip 即可。</p>
 <p>接下来我们在 Windows 下给 EFI 分区分配一个盘符，让我们可以读写 EFI 分区。</p>
 <p>在 EFI 分区里新建一个名为 Clover 的文件夹，把刚才下载的 CLOVERX64.efi.zip 解压，放到 /Clover 文件夹里。</p>
 <p>最后，我们手动在 /Clover 文件夹里新建一个名为 ACPI 的文件夹。成果如下：</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea97ffac2a9a83be567935b.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea97ffac2a9a83be567935b.png"></p>
 <p>搞定之后，我们在 BIOS 中添加 Clover 为新的启动项，开机 F12 选择 Clover 启动，进入 Clover 的界面。</p>
 <p>按键盘上的 <code>F4</code>，即可导出原始的 DSDT 文件。为了保险起见，请再按一下 FN + F4（如果有 FN 键的话）。</p>
 <p>我们重启进入系统，可以发现 /EFI/Clover/ACPI 下，已经生成了 /origin 文件夹。复制整个 /origin 文件夹到一个安全的，且 macOS 能够读取的地方。</p>
 <p>重启进入 macOS，接下来的操作我们只需要 /origin 文件夹里的 <code>DSDT.aml</code> 文件。</p>
 <br/>
 
-<p>下载 <a href="https://github.com/acidanthera/MaciASL/releases" target="_blank" rel="noopener">MaciASL</a>，运行。打开我们刚才得到的 DSDT.aml。</p>
-<p>打开黑果小兵的<a href="https://github.com/daliansky/OC-little" target="_blank" rel="noopener">教程</a>，Clone 整个项目到本地。</p>
+<p>下载 <a target="_blank" rel="noopener" href="https://github.com/acidanthera/MaciASL/releases">MaciASL</a>，运行。打开我们刚才得到的 DSDT.aml。</p>
+<p>打开黑果小兵的<a target="_blank" rel="noopener" href="https://github.com/daliansky/OC-little">教程</a>，Clone 整个项目到本地。</p>
 <p>接下来就是一步一步跟着教程走，有需要的 .dsl 文件就使用 MaciASL 打开，另存为 <code>ACPI Machine Language Binary</code> 文件，统一保存到一个目录。</p>
 <p>比如根据教程的描述，我需要仿冒 EC。我就打开大神已经帮我们写好的 SSDT-EC.dsl 文件，直接另存为 SSDT-EC.aml，最后放到我的 /EFI/OC/ACPI 文件夹下，并在 config.plist 中 ACPI - Add 添加子项加载。</p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea98c36c2a9a83be5720ac3.png"  alt=""></p>
-<p><img src="/" class="lazyload" data-src="https://pic.downk.cc/item/5ea98b74c2a9a83be5716f84.png"  alt=""></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea98c36c2a9a83be5720ac3.png"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://pic.downk.cc/item/5ea98b74c2a9a83be5716f84.png"></p>
 <p>如图所示，我一共加载了16个 SSDT 补丁才完成，这项操作很需要耐心。</p>
 <p>另外值得注意的是，大神制作的 SSDT 补丁是专为 OpenCore 引导制作的，添加了自动识别 macOS 系统的代码，非常完美。因此其他 SSDT 补丁教程我一律不推荐。在此感谢大神的分享。</p>
-<p>版权归 <a href="https://github.com/daliansky" target="_blank" rel="noopener">黑果小兵</a> 和 宪武 两位大神所有。</p>
+<p>版权归 <a target="_blank" rel="noopener" href="https://github.com/daliansky">黑果小兵</a> 和 宪武 两位大神所有。</p>
 <h2 id="9-8-USB-定制"><a href="#9-8-USB-定制" class="headerlink" title="9.8. USB 定制"></a>9.8. USB 定制</h2><p>通过定制 USB，可以解决睡眠睡不死，接口速度不正常等问题。</p>
-<p><a href="https://space.bilibili.com/389695954" target="_blank" rel="noopener">黑果小兵</a> 大佬制作了一个很详细的视频，按照他的步骤来即可：</p>
-<p><a href="https://www.bilibili.com/video/BV1gt411s7aY" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1gt411s7aY</a></p>
+<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/389695954">黑果小兵</a> 大佬制作了一个很详细的视频，按照他的步骤来即可：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gt411s7aY">https://www.bilibili.com/video/BV1gt411s7aY</a></p>
 <br/>
 
 <p>至此，基本上已经完成了黑苹果的所有完善操作，你可以直接登录自己的 Apple ID，并使用 iCloud、App Store 等服务了。</p>
 <hr>
 <h1 id="10-结尾"><a href="#10-结尾" class="headerlink" title="10. 结尾"></a>10. 结尾</h1><p>经过了20多天，总算是把这篇接近1万字的教程写完了。期间查阅了无数资料，不断在自己的电脑中验证步骤的可行性，不知不觉也丰富了自己对黑苹果这门技术的了解。</p>
-<p>肯定会有人问，你这么做的意义何在，去辛辛苦苦折腾黑苹果的意义又何在。我这里想引用我非常喜欢的一位主播，UP主 <a href="https://space.bilibili.com/29440965" target="_blank" rel="noopener">@超级小桀</a> 的一句话：</p>
+<p>肯定会有人问，你这么做的意义何在，去辛辛苦苦折腾黑苹果的意义又何在。我这里想引用我非常喜欢的一位主播，UP主 <a target="_blank" rel="noopener" href="https://space.bilibili.com/29440965">@超级小桀</a> 的一句话：</p>
 <blockquote>
 <p>有些人过了17岁就忘了16岁的自己，不管你们是什么样的年纪，都希望你们不要忘记这段时间，就像我们会一直年轻，一直探寻这个世界的秘密。</p>
 </blockquote>
 <p>如果你看完了我这篇文章，</p>
 <p>瞧，你又发现了这个世界的另一个秘密。我想这就是意义。</p>
 <h1 id="11-版权鸣谢"><a href="#11-版权鸣谢" class="headerlink" title="11. 版权鸣谢"></a>11. 版权鸣谢</h1><ul>
-<li><a href="https://www.apple.com.cn/" target="_blank" rel="noopener">Apple</a> 的 macOS</li>
-<li>黑果小兵 的 <a href="https://blog.daliansky.net/" target="_blank" rel="noopener">部落阁</a>、<a href="https://github.com/daliansky" target="_blank" rel="noopener">GitHub</a>、<a href="https://space.bilibili.com/389695954" target="_blank" rel="noopener">Bilibili</a></li>
-<li>xjn 的 <a href="https://blog.xjn819.com/" target="_blank" rel="noopener">Blog</a></li>
-<li><a href="http://i.pcbeta.com/space-uid-4532202.html" target="_blank" rel="noopener">15732157027</a> 远景版主 的 <a href="http://bbs.pcbeta.com/viewthread-1850664-1-1.html" target="_blank" rel="noopener">系统镜像</a>、<a href="http://bbs.pcbeta.com/viewthread-1740837-1-1.html" target="_blank" rel="noopener">Clover</a></li>
-<li><a href="https://github.com/acidanthera" target="_blank" rel="noopener">acidanthera</a> 的 <a href="https://github.com/acidanthera/OpenCorePkg" target="_blank" rel="noopener">OpenCore</a> 和无数驱动</li>
-<li><a href="https://github.com/rehabman" target="_blank" rel="noopener">RehabMan</a> 的无数驱动</li>
-<li>宪武 的 <a href="https://github.com/daliansky/OC-little" target="_blank" rel="noopener">OC-littile</a></li>
-<li><a href="https://github.com/zxystd" target="_blank" rel="noopener">zxystd</a> 的 <a href="https://github.com/zxystd/IntelBluetoothFirmware" target="_blank" rel="noopener">IntelBluetoothFirmware</a>、<a href="https://github.com/zxystd/itlwm" target="_blank" rel="noopener">itlwm</a></li>
-<li><a href="https://github.com/stevezhengshiqi" target="_blank" rel="noopener">stevezhengshiqi</a> 的 <a href="https://github.com/stevezhengshiqi/one-key-cpufriend" target="_blank" rel="noopener">one-key-cpufriend</a></li>
-<li><a href="https://github.com/xzhih" target="_blank" rel="noopener">ZeRo° Xu</a> 的 <a href="https://github.com/xzhih/one-key-hidpi" target="_blank" rel="noopener">one-key-hidpi</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.apple.com.cn/">Apple</a> 的 macOS</li>
+<li>黑果小兵 的 <a target="_blank" rel="noopener" href="https://blog.daliansky.net/">部落阁</a>、<a target="_blank" rel="noopener" href="https://github.com/daliansky">GitHub</a>、<a target="_blank" rel="noopener" href="https://space.bilibili.com/389695954">Bilibili</a></li>
+<li>xjn 的 <a target="_blank" rel="noopener" href="https://blog.xjn819.com/">Blog</a></li>
+<li><a target="_blank" rel="noopener" href="http://i.pcbeta.com/space-uid-4532202.html">15732157027</a> 远景版主 的 <a target="_blank" rel="noopener" href="http://bbs.pcbeta.com/viewthread-1850664-1-1.html">系统镜像</a>、<a target="_blank" rel="noopener" href="http://bbs.pcbeta.com/viewthread-1740837-1-1.html">Clover</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera">acidanthera</a> 的 <a target="_blank" rel="noopener" href="https://github.com/acidanthera/OpenCorePkg">OpenCore</a> 和无数驱动</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rehabman">RehabMan</a> 的无数驱动</li>
+<li>宪武 的 <a target="_blank" rel="noopener" href="https://github.com/daliansky/OC-little">OC-littile</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zxystd">zxystd</a> 的 <a target="_blank" rel="noopener" href="https://github.com/zxystd/IntelBluetoothFirmware">IntelBluetoothFirmware</a>、<a target="_blank" rel="noopener" href="https://github.com/zxystd/itlwm">itlwm</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/stevezhengshiqi">stevezhengshiqi</a> 的 <a target="_blank" rel="noopener" href="https://github.com/stevezhengshiqi/one-key-cpufriend">one-key-cpufriend</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/xzhih">ZeRo° Xu</a> 的 <a target="_blank" rel="noopener" href="https://github.com/xzhih/one-key-hidpi">one-key-hidpi</a></li>
 </ul>
-</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">tonyleelyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://tonyleelyy.top/42403/">http://tonyleelyy.top/42403/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://tonyleelyy.top" target="_blank">Tony的个人网站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/">黑苹果</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_image2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/46011/"><img class="prev_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_image2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">搭建一个永不失效的图床</div></div></a></div><div class="next-post pull_right"><a href="/28369/"><img class="next_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_md.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Markdown 写作指南</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">tonyleelyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://tonyleelyy.top/42403/">http://tonyleelyy.top/42403/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://tonyleelyy.top" target="_blank">Tony's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/">黑苹果</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_hack.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/46011/"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_image2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">搭建一个永不失效的图床</div></div></a></div><div class="next-post pull-right"><a href="/28369/"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_md.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Markdown 写作指南</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 Copyright tonyleelyy, ALL RIGHTS RESERVED.</div><div class="icp"><a target="_blank" rel="noopener" href="http://www.beian.miit.gov.cn/"><span>粤ICP备20027791号-1</span><span class="footer-separator">|</span></a><a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44060602001597"><img class="icp-icon" src="/img/icp.png"/><span>粤公网安备 44060602001597号</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'r302igk8XyM86ggE5fdjvooe-gzGzoHsz',
+      appKey: 'QbaJQDAL6oAWFDgi1EXDU1CI',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-cn',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
 
-window.valine = new Valine({
-  el:'#vcomment',
-  notify: true,
-  verify: false,
-  appId: 'r302igk8XyM86ggE5fdjvooe-gzGzoHsz',
-  appKey: 'QbaJQDAL6oAWFDgi1EXDU1CI',
-  placeholder: '留下你的足迹吧~',
-  avatar: 'monsterid',
-  meta: guest_info,
-  pageSize: '10',
-  lang: 'zh-cn',
-  recordIP: false,
-  serverURLs: ''
-});</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 Copyright tonyleelyy, ALL RIGHTS RESERVED.</div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><span>粤ICP备20027791号-1</span><span class="footer-separator">|</span></a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44060602001597" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"/><span>粤公网安备 44060602001597号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/js/third-party/ClickShowText.js"></script></body></html>
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
