@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Windows &amp; iOS 连续互通——我的解决方案 | Tony's Blog</title><meta name="description" content="Windows + iOS，彳亍！"><meta name="keywords" content="教程,分享,iOS,Windows"><meta name="author" content="tonyleelyy"><meta name="copyright" content="tonyleelyy"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://tonyleelyy.top/43357/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//ta.qq.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="EXShWAqsxstSGZuCcQ5bCsyw2HLoQAQf5rYn8NsYYM4"/><meta property="og:type" content="article"><meta property="og:title" content="Windows &amp; iOS 连续互通——我的解决方案"><meta property="og:url" content="http://tonyleelyy.top/43357/"><meta property="og:site_name" content="Tony's Blog"><meta property="og:description" content="Windows + iOS，彳亍！"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/IMG_8388.jpg"><meta property="article:published_time" content="2020-08-08T12:43:00.000Z"><meta property="article:modified_time" content="2020-08-08T12:43:00.000Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = '1'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a2701d1594d91bdd8b297f93c1a846f8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-162300758-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-162300758-1');
+</script><script src="https://tajs.qq.com/stats?sId=66539099" charset="UTF-8" data-pjax="data-pjax"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":90,"position":"top","messagePrev":"本文最后更新于","messageNext":"天前，文中所描述的信息可能已发生改变。"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-08-08 20:43:00'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.0.0"><link rel="alternate" href="/atom.xml" title="Tony's Blog" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">6</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">12</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 更多</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></li><li><a class="site-page" href="/tp/"><i class="fa-fw fa fa-book"></i><span> 测试</span></a></li></ul></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AE%9E%E7%8E%B0%E3%80%8C%E8%BF%9E%E7%BB%AD%E4%BA%92%E9%80%9A%E3%80%8D"><span class="toc-number">1.</span> <span class="toc-text">为什么要实现「连续互通」</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%EF%BC%8C%E4%B8%8D%E6%AD%A2%E4%B8%80%E7%82%B9%E5%8D%8A%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">提升效率，不止一点半点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E6%8C%81%E5%88%9B%E4%BD%9C%E7%9A%84%E3%80%8C%E6%B5%81%E7%95%85%E6%84%9F%E3%80%8D"><span class="toc-number">1.2.</span> <span class="toc-text">保持创作的「流畅感」</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E5%AE%9E%E7%8E%B0%E3%80%8C%E8%BF%9E%E7%BB%AD%E4%BA%92%E9%80%9A%E3%80%8D"><span class="toc-number">2.</span> <span class="toc-text">怎样实现「连续互通」</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8A%9B-amp-%E9%80%9A%E7%94%A8%E5%89%AA%E8%B4%B4%E6%9D%BF"><span class="toc-number">2.1.</span> <span class="toc-text">接力 &amp; 通用剪贴板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Bark-%E7%9A%84-Chrome-%E6%89%A9%E5%B1%95-%E8%87%AA%E5%8A%A8%E5%A4%8D%E5%88%B6%E7%89%88%E3%80%82"><span class="toc-number">2.1.1.</span> <span class="toc-text">安装 Bark 的 Chrome 扩展 自动复制版。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%89%8B%E6%9C%BA%E7%AB%AF%E5%AE%89%E8%A3%85-Bark-App"><span class="toc-number">2.1.2.</span> <span class="toc-text">在手机端安装 Bark App</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%89%93%E5%BC%80%E5%90%8E%E5%A4%8D%E5%88%B6-App-%E5%86%85%E7%9A%84%E9%93%BE%E6%8E%A5"><span class="toc-number">2.1.3.</span> <span class="toc-text">安装打开后复制 App 内的链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Chrome-%E6%8F%92%E4%BB%B6%E5%86%85%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.1.4.</span> <span class="toc-text">Chrome 插件内的设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E6%BC%94%E7%A4%BA"><span class="toc-number">2.1.5.</span> <span class="toc-text">效果演示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%94%E7%A9%BA%E6%8A%95%E9%80%81"><span class="toc-number">2.2.</span> <span class="toc-text">隔空投送</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E5%90%AF%E7%94%A8%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB"><span class="toc-number">2.2.1.</span> <span class="toc-text">在控制面板启用文件共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%94%B5%E8%84%91%E4%B8%8A%E8%B4%9F%E8%B4%A3%E6%8E%A5%E6%94%B6%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">2.2.2.</span> <span class="toc-text">选择电脑上负责接收文件的文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%9D%E5%A4%96%E7%9A%84%E5%AE%89%E5%85%A8%E6%93%8D%E4%BD%9C"><span class="toc-number">2.2.3.</span> <span class="toc-text">额外的安全操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%94%B5%E8%84%91%E7%9A%84%E5%86%85%E7%BD%91-IP"><span class="toc-number">2.2.4.</span> <span class="toc-text">获取当前电脑的内网 IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E6%89%8B%E6%9C%BA%E3%80%8C%E6%96%87%E4%BB%B6%E3%80%8DApp%EF%BC%8C%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.2.5.</span> <span class="toc-text">打开手机「文件」App，连接服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E6%BC%94%E7%A4%BA-1"><span class="toc-number">2.2.6.</span> <span class="toc-text">效果演示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SMB-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%85%B6%E4%BB%96%E5%A6%99%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">SMB 服务器的其他妙用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Documents-App-%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8A%9F%E8%83%BD"><span class="toc-number">2.3.1.</span> <span class="toc-text">使用 Documents App 的同步功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E6%BC%94%E7%A4%BA-2"><span class="toc-number">2.3.2.</span> <span class="toc-text">效果演示</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/IMG_8388.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Tony's Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 更多</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></li><li><a class="site-page" href="/tp/"><i class="fa-fw fa fa-book"></i><span> 测试</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Windows &amp; iOS 连续互通——我的解决方案</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-08T12:43:00.000Z" title="发表于 2020-08-08 20:43:00">2020-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-08T12:43:00.000Z" title="更新于 2020-08-08 20:43:00">2020-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/%E7%B3%BB%E7%BB%9F/">系统</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>在 Apple 生态中，「连续互通」一直是提升体验和效率的重要一环。在 Apple 介绍 <a target="_blank" rel="noopener" href="https://support.apple.com/zh-cn/HT204681">使用“连续互通”连接设备</a> 的页面中，可以看到 Apple 将「连续互通」扩展为 接力、通用剪贴板、iPhone 蜂窝网络通话……等等 12 项功能。</p>
+<p>其中我认为最常用也最能提升效率的，应该是<strong>「接力」「通用剪贴板」「隔空投送」</strong>。</p>
+<p>而要在 Windows 系统下实现这些功能，我们需要一些技巧和工具。</p>
+<blockquote>
+<p>虽说是 Win &amp; iOS 连续互通，但其实 Android 系统也同样适用大部分功能，本人知识有限，这里就不做讨论了。</p>
+</blockquote>
+<p>本文使用到的工具：Bark、Windows SMB服务、iCloud、Documents App。</p>
+<h1 id="为什么要实现「连续互通」"><a href="#为什么要实现「连续互通」" class="headerlink" title="为什么要实现「连续互通」"></a>为什么要实现「连续互通」</h1><p>当想到「要向电脑传输文件」「想将电脑上的一句话复制到手机上」「想用电脑打开手机上的网页」，不少人都会选择伟大的国民社交 App——微信。但就算抛开微信的种种对文件的限制不说，光是在电脑上每次都需要登微信，就已经足够烦人的了。这里容我先谈谈实现「连续互通」的好处：</p>
+<h2 id="提升效率，不止一点半点"><a href="#提升效率，不止一点半点" class="headerlink" title="提升效率，不止一点半点"></a>提升效率，不止一点半点</h2><ul>
+<li><p>如果你需要将一个网页链接发送到手机，</p>
+<p>使用微信将需要 11 步：点开微信客户端，点击登陆，在手机确认登陆，复制网址，点击微信，点选文件传输助手或自己的聊天框，粘贴，发送，在手机端复制，在手机端打开浏览器，点击「粘贴并前往」。</p>
+<p>而使用 Bark 只需 4 步：在 Chrome 右键链接，点击 Bark 菜单发送，在手机端打开浏览器，点击「粘贴并前往」。</p>
+</li>
+<li><p>如果你需要把手机上拍的一条2分钟的1080P视频发送到电脑，</p>
+<p>使用微信将会自动“帮”你把视频压缩成 640x368 30帧的指甲盖大小模式，且需要额外等待微信压缩视频的时间。</p>
+<p>使用 iCloud 同步，上传和下载速度都会极其感人。</p>
+<p>而使用 Windows SMB 服务，实现无损传输的同时，速度几乎可以跑满路由器带宽（受限于 Wi-Fi 信号强度）</p>
+</li>
+</ul>
+<h2 id="保持创作的「流畅感」"><a href="#保持创作的「流畅感」" class="headerlink" title="保持创作的「流畅感」"></a>保持创作的「流畅感」</h2><p>创作灵感可不会一直都能保持在脑海中。「连续互通」可以让你实现跨设备无缝工作，我相信这样创作无论如何都比拼凑灵感碎片要来得高效，创作出的内容也会相对高质量。</p>
+<h1 id="怎样实现「连续互通」"><a href="#怎样实现「连续互通」" class="headerlink" title="怎样实现「连续互通」"></a>怎样实现「连续互通」</h1><blockquote>
+<p>实际上 iPadOS 也同样适用，为了方便这里统称为「iOS」。</p>
+</blockquote>
+<h2 id="接力-amp-通用剪贴板"><a href="#接力-amp-通用剪贴板" class="headerlink" title="接力 &amp; 通用剪贴板"></a>接力 &amp; 通用剪贴板</h2><p>Mac 和 iOS 设备之间可以共享剪贴板，即实现「在电脑复制，在手机粘贴」或「在手机复制，在电脑粘贴」。</p>
+<p>而在 Mac 设备和 iOS 设备上用浏览器打开网页或支持接力的 App，在另一台设备上也能同时看到。</p>
+<p>在 Windows 系统下，我们可以实现一半的功能，即「在电脑复制，在手机粘贴」和「网页接力」。</p>
+<p>这里使用到 <a target="_blank" rel="noopener" href="https://github.com/Finb/Bark">Bark</a> 这个神器。</p>
+<blockquote>
+<p>Bark is an iOS App which allows you to push costumed notifications to your iPhone.</p>
+</blockquote>
+<p>Bark 可以在电脑端向 iOS 设备推送通知，就跟短信，微信的消息通知一样。由于走的是 Apple 的推送服务，所以几乎不会出现延迟。</p>
+<h3 id="安装-Bark-的-Chrome-扩展-自动复制版。"><a href="#安装-Bark-的-Chrome-扩展-自动复制版。" class="headerlink" title="安装 Bark 的 Chrome 扩展 自动复制版。"></a>安装 Bark 的 <a target="_blank" rel="noopener" href="https://github.com/xlvecle/Bark-Chrome-Extension">Chrome 扩展 自动复制版</a>。</h3><p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/bark/pmlkbdbpglkgbgopghdcmohdcmladeii">Chrome 商店地址</a>，这个版本向 iOS 设备推送消息之后，手机会自动复制消息的内容，无需打开 App，也无需手动操作。</p>
+<h3 id="在手机端安装-Bark-App"><a href="#在手机端安装-Bark-App" class="headerlink" title="在手机端安装 Bark App"></a>在手机端安装 Bark App</h3><p><a target="_blank" rel="noopener" href="https://apps.apple.com/cn/app/bark-%E7%BB%99%E4%BD%A0%E7%9A%84%E6%89%8B%E6%9C%BA%E5%8F%91%E6%8E%A8%E9%80%81/id1403753865">App Store 链接</a>，免费开源无内购。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200809113023.png" width = 100% height = 100% alt="app store" />
+
+<h3 id="安装打开后复制-App-内的链接"><a href="#安装打开后复制-App-内的链接" class="headerlink" title="安装打开后复制 App 内的链接"></a>安装打开后复制 App 内的链接</h3><p>到刚才安装的 Chrome 插件选项卡中填写。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/InkedIMG_8390_LI.jpg" width = 50% height = 50% alt="app" />
+
+<h3 id="Chrome-插件内的设置"><a href="#Chrome-插件内的设置" class="headerlink" title="Chrome 插件内的设置"></a>Chrome 插件内的设置</h3><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200809114335.png" alt="微信截图_20200809114335"></p>
+<p>然后就可以直接使用了。在浏览器中选中文字信息，右键点击 Bark 菜单即可发送。</p>
+<p>手机端收到消息后会自动复制，不用手动操作，间接实现了通用剪贴板和网页接力功能。</p>
+<p>如果你想更安全一点，也可以浏览 <a target="_blank" rel="noopener" href="https://github.com/Finb/bark-server">Finb 的 GitHub 项目</a>，将 Bark 服务部署到你的服务器。</p>
+<h3 id="效果演示"><a href="#效果演示" class="headerlink" title="效果演示"></a>效果演示</h3><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/2020-08-09%2013-49-12_2.gif" alt="2020-08-09 13-49-12_2"></p>
+<h2 id="隔空投送"><a href="#隔空投送" class="headerlink" title="隔空投送"></a>隔空投送</h2><p>不同的 Apple 设备之间可以用「隔空投送」功能快速方便地无线传输文件。</p>
+<p>而在 Windows 系统与 iOS 设备之间，我们也可以通过一些技术实现这一功能，同样运用 Wi-Fi 快速地传输文件。</p>
+<p>这里使用到的是「Windows SMB」服务，iOS 上自带的「文件」和 App Store 上的「Documents」App。</p>
+<h3 id="在控制面板启用文件共享"><a href="#在控制面板启用文件共享" class="headerlink" title="在控制面板启用文件共享"></a>在控制面板启用文件共享</h3><p>首先需要打开 控制面板 - 网络和共享中心 - 高级共享设置</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200809142409.png" alt="微信截图_20200809142409"></p>
+<p>将带有（当前配置文件）一项的 <code>网络发现</code> 和 <code>文件和打印机共享</code> 启用。</p>
+<h3 id="选择电脑上负责接收文件的文件夹"><a href="#选择电脑上负责接收文件的文件夹" class="headerlink" title="选择电脑上负责接收文件的文件夹"></a>选择电脑上负责接收文件的文件夹</h3><p>比如我这里选择桌面，<code>右键</code> - <code>属性</code> - <code>共享</code>。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200809143214.png" width = 35% height = 35% alt="system" />
+
+<p>点击 <code>高级共享</code>，勾选 <code>共享此文件夹</code>。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200809143552.png" width = 35% height = 35% alt="system" />
+
+<h3 id="额外的安全操作"><a href="#额外的安全操作" class="headerlink" title="额外的安全操作"></a>额外的安全操作</h3><p>点击 <code>高级共享</code> 里面的 <code>权限</code>，<strong>将自带的 Everyone 删除</strong>。</p>
+<p>点击 <code>添加</code> - <code>高级</code> - <code>立即查找</code>。在搜索结果里找到自己的 Windows 用户，点击确定。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200809145443.png" width = 50% height = 50% alt="system" />
+
+<p>确定后回到 <code>权限</code> 面板，可以看到我们的用户已经添加到了列表中，记住自己用户名括号后面的内容，比如我的 <a href="mailto:&#x35;&#48;&#x35;&#x35;&#x35;&#120;&#x78;&#120;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#109;">&#x35;&#48;&#x35;&#x35;&#x35;&#120;&#x78;&#120;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#109;</a>，也可以根据自己的需要分配权限。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200809145800.png" width = 35% height = 35% alt="system" />
+
+<h3 id="获取当前电脑的内网-IP"><a href="#获取当前电脑的内网-IP" class="headerlink" title="获取当前电脑的内网 IP"></a>获取当前电脑的内网 IP</h3><p>打开自带的 Windows PowerShell 工具，输入 <code>ipconfig</code>。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/Inked%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200809144211_LI.jpg" alt="Inked微信截图_20200809144211_LI"></p>
+<p>记住这里出现的「IPv4 地址」，我这里是 192.168.0.7</p>
+<h3 id="打开手机「文件」App，连接服务器"><a href="#打开手机「文件」App，连接服务器" class="headerlink" title="打开手机「文件」App，连接服务器"></a>打开手机「文件」App，连接服务器</h3><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/IMG_8392.jpg" width = 35% height = 35% alt="system" />
+
+<p>在弹出的页面输入服务器「smb://刚才的IP地址」，比如我的是「smb://192.168.0.7」。</p>
+<p>连接身份选择「注册用户」，填入你 Windows 账号名称和密码（名称是刚才括号内的内容）。点击下一步即添加完成。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/IMG_8393.PNG" width = 35% height = 35% alt="system" />
+
+<p>现在你应该可以在文件 App 内打开你的 SMB 服务，并访问你刚才添加的文件夹了。</p>
+<h3 id="效果演示-1"><a href="#效果演示-1" class="headerlink" title="效果演示"></a>效果演示</h3><p>准备工作完成，现在已经可以实现「隔空投送」的操作了。在文件或图片的分享页面中选择 <code>存储到“文件”</code>，再点击 SMB 服务器，<code>存储</code>，文件就飞快地传到了电脑里。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/2020-08-09%2015-22-34_1.gif" alt="2020-08-09 15-22-34_1"></p>
+<h2 id="SMB-服务器的其他妙用"><a href="#SMB-服务器的其他妙用" class="headerlink" title="SMB 服务器的其他妙用"></a>SMB 服务器的其他妙用</h2><p>在 iOS 和 macOS 端，接力功能还可以实现非常方便的跨设备工作，比如「在电脑写到一半的文章，在手机上继续写」。</p>
+<p>利用刚才部署的 SMB 服务，我们也可以在 Windows 和 iOS 设备之间实现这个功能。</p>
+<h3 id="使用-Documents-App-的同步功能"><a href="#使用-Documents-App-的同步功能" class="headerlink" title="使用 Documents App 的同步功能"></a>使用 Documents App 的同步功能</h3><p>Documents 是 iOS 上一个强大的文件管理器。<a target="_blank" rel="noopener" href="https://apps.apple.com/cn/app/documents-by-readdle/id364901807">App Store 链接</a>，免费下载。</p>
+<p>在 Documents 内的「连接」选项卡里，我们也可以添加 SMB 服务器。填写格式如下（更改为你电脑的信息，包括密码）：</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/PNG192.png" width = 35% height = 35% alt="doc" />
+
+<p>跟「文件」App 不一样的是，Documents 自带一个「同步」功能。将文件夹添加同步之后，App 每次都会帮你把文件夹内的文件下载到手机上，而「文件」App 则不会。</p>
+<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/IMG_8396.PNG" width = 35% height = 35% alt="doc" />
+
+<p>这么做使得就算你的电脑需要关机，只要你在关机前打开 Documents，下拉同步一下，文件就保存在了你的手机里，你可以在手机上继续你的工作。</p>
+<p>你在手机里完成修改工作之后，打开电脑，在 App 里下拉同步一下，电脑里的文件就会变成你在手机里修改过的版本。间接实现了跨设备工作~</p>
+<h3 id="效果演示-2"><a href="#效果演示-2" class="headerlink" title="效果演示"></a>效果演示</h3><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/2020-08-09%2015-51-55.gif" alt="2020-08-09 15-51-55"></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>在 Windows 上实现「连续互通」其实还有很多种方法，比如直接使用 Edge 浏览器将 iCloud 网页版上的 App 打包成桌面应用，使用官方的 iCloud 应用，使用 Send Anywhere，Continue on PC 等 App。我这里仅列出我自己使用过，觉得比较接近原生体验的 App。</p>
+<p>而 Bark 和 SMB 真的是神器，还可以实现譬如「扫码通知挪车」「多媒体服务器」之类的操作，等大家去挖掘。</p>
+<p>如果你有更好的「连续互通」解决方案，或者实现其他功能的方法，欢迎留言~</p>
+<p><strong>感谢你的阅读！</strong></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">tonyleelyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://tonyleelyy.top/43357/">http://tonyleelyy.top/43357/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://tonyleelyy.top" target="_blank">Tony's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/%E5%88%86%E4%BA%AB/">分享</a><a class="post-meta__tags" href="/tags/iOS/">iOS</a><a class="post-meta__tags" href="/tags/Windows/">Windows</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/IMG_8388.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/46011/"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/tonyleelyy/BlogImages/img/cover_image2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">搭建一个永不失效的图床</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 Copyright tonyleelyy, ALL RIGHTS RESERVED.</div><div class="icp"><a target="_blank" rel="noopener" href="http://www.beian.miit.gov.cn/"><span>粤ICP备20027791号-1</span><span class="footer-separator">|</span></a><a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44060602001597"><img class="icp-icon" src="/img/icp.png"/><span>粤公网安备 44060602001597号</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'r302igk8XyM86ggE5fdjvooe-gzGzoHsz',
+      appKey: 'QbaJQDAL6oAWFDgi1EXDU1CI',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-cn',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

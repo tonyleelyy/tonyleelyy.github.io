@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tonyleelyy.top/"/>
-  <updated>2020-05-15T14:00:00.000Z</updated>
+  <updated>2020-08-08T12:43:00.000Z</updated>
   <id>http://tonyleelyy.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows &amp; iOS 连续互通——我的解决方案</title>
+    <link href="http://tonyleelyy.top/43357/"/>
+    <id>http://tonyleelyy.top/43357/</id>
+    <published>2020-08-08T12:43:00.000Z</published>
+    <updated>2020-08-08T12:43:00.000Z</updated>
+    
+    <summary type="html">
+    
+      Windows + iOS，彳亍！
+    
+    </summary>
+    
+    
+      <category term="教程" scheme="http://tonyleelyy.top/categories/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="系统" scheme="http://tonyleelyy.top/categories/%E6%95%99%E7%A8%8B/%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="教程" scheme="http://tonyleelyy.top/tags/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="分享" scheme="http://tonyleelyy.top/tags/%E5%88%86%E4%BA%AB/"/>
+    
+      <category term="iOS" scheme="http://tonyleelyy.top/tags/iOS/"/>
+    
+      <category term="Windows" scheme="http://tonyleelyy.top/tags/Windows/"/>
+    
+  </entry>
   
   <entry>
     <title>搭建一个永不失效的图床</title>
